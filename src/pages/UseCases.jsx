@@ -116,7 +116,7 @@ function Journey() {
       {JOURNEY.map(([when, t, p], i) => (
         <Reveal key={t} className="journey-step" delay={i * 0.1}>
           <span className="journey-dot">{i + 1}</span>
-          <span className="mono muted" style={{ fontSize: 12 }}>{when}</span>
+          <span className="muted" style={{ fontSize: 13 }}>{when}</span>
           <h3 className="h3">{t}</h3>
           <p>{p}</p>
         </Reveal>
@@ -132,9 +132,7 @@ export default function UseCases() {
         <div className="wrap">
           <Reveal className="section-head" style={{ maxWidth: 900 }}>
             <p className="eyebrow">Use cases</p>
-            <h1 className="display h1" style={{ fontSize: 'clamp(42px, 6.4vw, 88px)' }}>
-              Built for the jobs your team <span className="mark">actually has.</span>
-            </h1>
+            <h1 className="display h1">Built for the jobs your team actually has.</h1>
             <p className="lede">
               Four jobs every team recognises, in plain language, plus deeper support for every department in your business.
             </p>

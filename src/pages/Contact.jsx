@@ -17,8 +17,8 @@ export default function Contact({ demo = false }) {
       <div className="wrap form-layout">
         <Reveal>
           <p className="eyebrow">{demo ? 'Book a demo' : 'Contact us'}</p>
-          <h1 className="display h1" style={{ fontSize: 'clamp(42px, 5.6vw, 76px)' }}>
-            {demo ? <>See Swift Owl on <span className="mark">your</span> work.</> : <>Talk to a person, <span className="mark">not a bot</span>.</>}
+          <h1 className="display h1">
+            {demo ? <>See Swift Owl on your work.</> : <>Talk to a person, not a bot.</>}
           </h1>
           <p className="lede">
             {demo

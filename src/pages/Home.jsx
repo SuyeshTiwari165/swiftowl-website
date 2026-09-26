@@ -4,20 +4,21 @@ import { motion, useReducedMotion } from 'framer-motion'
 import PassageDemo from '../components/PassageDemo'
 import Agents from '../components/Agents'
 import DayTimeline from '../components/DayTimeline'
+import Mesh from '../components/Mesh'
 import { CountUp, Icon, Reveal, money } from '../components/ui'
 
+// Words animate in one by one; the last one ("Day 1.") is added in <Hero />.
 const HEADLINE = ['Get', 'your', 'whole', 'team', 'working', 'with', 'AI', 'from']
 
 function Hero() {
   const reduce = useReducedMotion()
   const word = (i) => ({
-    initial: reduce ? false : { opacity: 0, y: '0.5em', filter: 'blur(8px)' },
+    initial: reduce ? false : { opacity: 0, y: '0.4em', filter: 'blur(8px)' },
     animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
     transition: { duration: 0.6, delay: 0.05 * i, ease: [0.2, 0.7, 0.2, 1] },
   })
   return (
     <section className="hero">
-      <div className="hero-glow" aria-hidden="true" />
       <div className="wrap hero-grid">
         <div>
           <motion.p className="eyebrow" {...word(0)}>Secure AI workspace for teams</motion.p>
@@ -25,9 +26,9 @@ function Hero() {
             {HEADLINE.map((w, i) => (
               <Fragment key={i}><motion.span className="hero-word" {...word(i)}>{w}</motion.span>{" "}</Fragment>
             ))}
-            <motion.span className="hero-word mark" {...word(HEADLINE.length + 1)}>Day&nbsp;1.</motion.span>
+            <motion.span className="hero-word" {...word(HEADLINE.length + 1)}>Day&nbsp;1.</motion.span>
           </h1>
-          <Reveal delay={0.5}>
+          <Reveal delay={0.5} y={16}>
             <p className="lede">
               Swift Owl is a private AI workspace built around your company’s own knowledge.
               Three AI agents capture your notes, run your tasks and keep everyone on track,
@@ -38,15 +39,15 @@ function Hero() {
               <Link className="btn btn-ghost" to="/book-a-demo">Book a demo</Link>
             </div>
             <div className="chips">
-              <span className="chip"><Icon name="check" size={15} stroke={3} />No credit card</span>
-              <span className="chip"><Icon name="check" size={15} stroke={3} />30-day free trial</span>
-              <span className="chip"><Icon name="check" size={15} stroke={3} />ISO 27001 certified</span>
+              <span className="chip"><Icon name="check" size={15} stroke={2.5} />No credit card</span>
+              <span className="chip"><Icon name="check" size={15} stroke={2.5} />30-day free trial</span>
+              <span className="chip"><Icon name="check" size={15} stroke={2.5} />ISO 27001 certified</span>
             </div>
           </Reveal>
         </div>
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 40, rotate: 1.5 }}
-          animate={{ opacity: 1, y: 0, rotate: 0 }}
+          initial={reduce ? false : { opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
         >
           <PassageDemo />
@@ -74,14 +75,15 @@ function Problem() {
         <div className="problems">
           {PROBLEMS.map((p, i) => (
             <Reveal key={p.t} className="problem" delay={i * 0.08}>
-              <span className="problem-x"><Icon name="x" size={16} stroke={2.5} /></span>
+              <span className="problem-n">0{i + 1}</span>
               <h3 className="h3">{p.t}</h3>
               <p>{p.b}</p>
             </Reveal>
           ))}
         </div>
-        <Reveal as="p" className="fix-line">
-          Swift Owl fixes this: one secure workspace, with your company’s knowledge built in.
+        <Reveal className="fix-line band-cream">
+          <p>Swift Owl fixes this: one secure workspace, with your company’s knowledge built in.</p>
+          <Link className="btn btn-ghost" to="/start-free-trial">Start free trial <span className="arrow">→</span></Link>
         </Reveal>
       </div>
     </section>
@@ -90,7 +92,7 @@ function Problem() {
 
 function AgentsSection() {
   return (
-    <section className="section" id="agents" style={{ paddingTop: 0 }}>
+    <section className="section section-soft" id="agents">
       <div className="wrap">
         <Reveal className="section-head">
           <p className="eyebrow">Three AI agents, always on</p>
@@ -98,14 +100,16 @@ function AgentsSection() {
           <p className="lede">Pick an agent to see what it does during a normal working day.</p>
         </Reveal>
         <Reveal><Agents /></Reveal>
-        <Reveal className="brief-note">
-          <Icon name="mail" size={22} style={{ color: 'var(--violet)', flex: 'none', marginTop: 3 }} />
-          <span>Every morning and evening, Scout emails your whole team a brief, so everyone starts and ends the day aligned.</span>
-        </Reveal>
-        <Reveal className="brief-note">
-          <Icon name="users" size={22} style={{ color: 'var(--violet)', flex: 'none', marginTop: 3 }} />
-          <span>Need a second opinion? Bring AI advisors for finance, legal or strategy into a group with your team. <Link to="/groups-advisors">See groups and advisors →</Link></span>
-        </Reveal>
+        <div className="agent-notes">
+          <Reveal className="agent-note agent-note-cream">
+            <Icon name="mail" size={22} />
+            <p>Every morning and evening, Scout emails your whole team a brief, so everyone starts and ends the day aligned.</p>
+          </Reveal>
+          <Reveal className="agent-note agent-note-white" delay={0.08}>
+            <Icon name="users" size={22} />
+            <p>Need a second opinion? Bring AI advisors for finance, legal or strategy into a group with your team. <Link to="/groups-advisors">See groups and advisors →</Link></p>
+          </Reveal>
+        </div>
       </div>
     </section>
   )
@@ -139,7 +143,7 @@ function PrivacyFlow() {
           />
           {FLOW.map((s, i) => (
             <Reveal key={s.h} className={`flow-step ${s.cls || ''}`} delay={0.15 + i * 0.18}>
-              <span className="mono">{s.k}</span>
+              <span className="flow-k">{s.k}</span>
               <h4>{s.h}</h4>
               <p>{s.p}</p>
             </Reveal>
@@ -171,18 +175,20 @@ function HowItWorks() {
   return (
     <section className="section" style={{ paddingTop: 0 }}>
       <div className="wrap">
-        <Reveal className="section-head">
-          <p className="eyebrow">Simple. Conversational. Capable.</p>
-          <h2 className="display h2">Ask, and get finished work back.</h2>
-        </Reveal>
-        <div className="steps">
-          {steps.map(([t, p], i) => (
-            <Reveal key={t} className="step" delay={i * 0.1}>
-              <span className="step-n">Step {i + 1}</span>
-              <h3 className="h3">{t}</h3>
-              <p>{p}</p>
-            </Reveal>
-          ))}
+        <div className="band-cream">
+          <Reveal className="section-head">
+            <p className="eyebrow">Simple. Conversational. Capable.</p>
+            <h2 className="display h2">Ask, and get finished work back.</h2>
+          </Reveal>
+          <div className="steps">
+            {steps.map(([t, p], i) => (
+              <Reveal key={t} className="step" delay={i * 0.1}>
+                <span className="step-n">Step {i + 1}</span>
+                <h3 className="h3">{t}</h3>
+                <p>{p}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -191,7 +197,7 @@ function HowItWorks() {
 
 function Impact() {
   return (
-    <section className="section">
+    <section className="section" style={{ paddingTop: 0 }}>
       <div className="wrap">
         <Reveal className="section-head">
           <p className="eyebrow">The impact</p>
@@ -219,7 +225,7 @@ const ROWS = [
 
 function Compare() {
   return (
-    <section className="section" style={{ paddingTop: 0 }}>
+    <section className="section section-soft">
       <div className="wrap">
         <Reveal className="section-head">
           <p className="eyebrow">Swift Owl vs generic AI tools</p>
@@ -242,8 +248,8 @@ function Compare() {
               transition={{ delay: 0.1 * i }}
             >
               <div role="cell">{what}</div>
-              <div role="cell" className="them"><Icon name="x" size={15} stroke={2.5} />{them}</div>
-              <div role="cell" className="us"><Icon name="check" size={16} stroke={3} style={{ color: 'var(--violet)' }} />{us}</div>
+              <div role="cell" className="them"><Icon name="x" size={15} stroke={2} />{them}</div>
+              <div role="cell" className="us"><Icon name="check" size={16} stroke={2.5} />{us}</div>
             </motion.div>
           ))}
         </Reveal>
@@ -274,7 +280,7 @@ function Security() {
             </Reveal>
           ))}
         </div>
-        <Reveal style={{ marginTop: 36 }}>
+        <Reveal style={{ marginTop: 32 }}>
           <Link className="btn btn-light" to="/security">See how we keep your data safe <span className="arrow">→</span></Link>
         </Reveal>
       </div>
@@ -298,7 +304,7 @@ function Pricing() {
         <Reveal>
           <p className="eyebrow">Pricing</p>
           <h2 className="display h2">One simple price for your whole business.</h2>
-          <p className="lede" style={{ marginTop: 22 }}>
+          <p className="lede" style={{ marginTop: 20 }}>
             {money(BASE)}/month includes your first {INCLUDED} users. Each additional user is {money(PER_SEAT)}/month.
             Try it free for 30 days, no credit card needed.
           </p>
@@ -306,7 +312,7 @@ function Pricing() {
         <Reveal className="calc" delay={0.1}>
           <div className="calc-top">
             <label htmlFor="seats" className="calc-seats">{seats} {seats === 1 ? 'person' : 'people'}</label>
-            <span className="muted mono" style={{ fontSize: 12 }}>drag to size your team</span>
+            <span className="calc-hint">drag to size your team</span>
           </div>
           <input
             id="seats"
@@ -320,18 +326,20 @@ function Pricing() {
             aria-valuetext={`${seats} people, ${money(total)} per month`}
           />
           <div className="range-scale"><span>1</span><span>50</span><span>100</span><span>150</span></div>
-          <div className="calc-price" aria-live="polite">
-            <motion.span key={total} initial={{ opacity: 0.4, y: 6 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'inline-block' }}>
-              {money(total)}
-            </motion.span>
-            <small> /month</small>
+          <div className="calc-result">
+            <div className="calc-price" aria-live="polite">
+              <motion.span key={total} initial={{ opacity: 0.4, y: 6 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'inline-block' }}>
+                {money(total)}
+              </motion.span>
+              <small> /month</small>
+            </div>
+            <div className="calc-break">
+              <div><span>Base plan, first {INCLUDED} users</span><span>{money(BASE)}</span></div>
+              <div><span>{extra} additional {extra === 1 ? 'user' : 'users'} × {money(PER_SEAT)}</span><span>{money(extra * PER_SEAT)}</span></div>
+              <div><span>Per person</span><span>{money(Math.round(total / seats))}/mo</span></div>
+            </div>
           </div>
-          <div className="calc-break">
-            <div><span>Base plan, first {INCLUDED} users</span><span>{money(BASE)}</span></div>
-            <div><span>{extra} additional {extra === 1 ? 'user' : 'users'} × {money(PER_SEAT)}</span><span>{money(extra * PER_SEAT)}</span></div>
-            <div><span>Per person</span><span>{money(Math.round(total / seats))}/mo</span></div>
-          </div>
-          <Link className="btn btn-primary" to="/start-free-trial" style={{ width: '100%', justifyContent: 'center' }}>
+          <Link className="btn btn-primary" to="/start-free-trial" style={{ width: '100%' }}>
             Start your 30-day free trial <span className="arrow">→</span>
           </Link>
         </Reveal>
@@ -342,17 +350,17 @@ function Pricing() {
 
 function PartnerBand() {
   return (
-    <section className="wrap" style={{ paddingBottom: 'clamp(80px, 11vw, 150px)' }}>
+    <section className="wrap" style={{ paddingBottom: 0 }}>
       <Reveal className="band">
         <svg className="band-rings" viewBox="0 0 200 200" aria-hidden="true">
-          {[90, 70, 50, 30].map((r) => <circle key={r} cx="100" cy="100" r={r} fill="none" stroke="#fff" strokeWidth="1.5" />)}
+          {[90, 70, 50, 30].map((r) => <circle key={r} cx="100" cy="100" r={r} fill="none" stroke="currentColor" strokeWidth="1.5" />)}
         </svg>
         <div>
-          <p className="eyebrow" style={{ color: 'rgba(255,255,255,.7)' }}>For MSPs and agencies</p>
-          <h2 className="display" style={{ fontSize: 'clamp(30px, 3.6vw, 46px)' }}>Run an MSP or agency? Own the AI relationship with your clients.</h2>
+          <p className="eyebrow">For MSPs and agencies</p>
+          <h2 className="display h2" style={{ fontSize: 'clamp(28px, 3.4vw, 40px)' }}>Run an MSP or agency? Own the AI relationship with your clients.</h2>
           <p>Offer Swift Owl to your clients and build a new recurring revenue stream, safely and profitably.</p>
         </div>
-        <Link className="btn btn-light" to="/partners">See the partner program <span className="arrow">→</span></Link>
+        <Link className="btn btn-ghost" to="/partners">See the partner program <span className="arrow">→</span></Link>
       </Reveal>
     </section>
   )
@@ -360,7 +368,8 @@ function PartnerBand() {
 
 function FinalCta() {
   return (
-    <section className="section cta" style={{ paddingTop: 0 }}>
+    <section className="cta">
+      <Mesh variant="cta" flip />
       <div className="wrap">
         <Reveal>
           <h2 className="display h2">Meet your new AI teammate today.</h2>

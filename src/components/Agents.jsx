@@ -178,7 +178,7 @@ function CoachScreen() {
         {AREAS.map((a, i) => (
           <div key={a.name}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 6 }}>
-              <span>{a.name}</span><span className="mono" style={{ opacity: 0.6, fontSize: 12 }}>{a.v}%</span>
+              <span>{a.name}</span><span className="tnum" style={{ opacity: 0.6, fontSize: 12 }}>{a.v}%</span>
             </div>
             <div className={'meter' + (a.low ? ' low' : '')}>
               <motion.i initial={{ width: 0 }} animate={{ width: `${a.v}%` }} transition={{ duration: 0.9, delay: 0.1 + i * 0.1 }} />

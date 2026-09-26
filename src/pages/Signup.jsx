@@ -23,9 +23,7 @@ export default function Signup() {
       <div className="wrap form-layout">
         <Reveal>
           <p className="eyebrow">Start your free trial</p>
-          <h1 className="display h1" style={{ fontSize: 'clamp(42px, 5.6vw, 76px)' }}>
-            30 days free. <span className="mark">No credit card.</span>
-          </h1>
+          <h1 className="display h1">30 days free. No credit card.</h1>
           <p className="lede">
             Tell us about your company and we’ll set up a private workspace for your team.
           </p>

@@ -142,9 +142,7 @@ export default function Security() {
         <div className="wrap form-layout" style={{ alignItems: 'center' }}>
           <Reveal>
             <p className="eyebrow">Security you can trust</p>
-            <h1 className="display h1" style={{ fontSize: 'clamp(42px, 6vw, 82px)' }}>
-              Your data is private. <span className="mark">Your trust</span> is our priority.
-            </h1>
+            <h1 className="display h1">Your data is private. Your trust is our priority.</h1>
             <p className="lede">Swift Owl is built with security and privacy by design, so your team can work with AI confidently.</p>
             <div className="hero-actions" style={{ marginTop: 32 }}>
               <Link className="btn btn-primary" to="/start-free-trial">Start free trial <span className="arrow">→</span></Link>

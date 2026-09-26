@@ -69,14 +69,16 @@ function Portfolio() {
           <input id="team" className="range" type="range" min="1" max="100" value={team}
             style={{ '--p': `${((team - 1) / 99) * 100}%` }} onChange={(e) => setTeam(+e.target.value)} />
         </div>
-        <div className="calc-break" style={{ marginBottom: 0 }}>
-          <div><span>People you’d bring onto Swift Owl</span><span className="mono">{(clients * team).toLocaleString()}</span></div>
-          <div><span>List price per client</span><span className="mono">{money(perClient)}/mo</span></div>
+        <div className="calc-result">
+          <div className="calc-break" style={{ margin: 0, padding: 0, border: 0 }}>
+            <div><span>People you’d bring onto Swift Owl</span><span>{(clients * team).toLocaleString()}</span></div>
+            <div><span>List price per client</span><span>{money(perClient)}/mo</span></div>
+          </div>
+          <div className="calc-price" aria-live="polite" style={{ marginTop: 20 }}>
+            {money(total)}<small style={{ display: 'block', marginTop: 8 }}>per month at list price</small>
+          </div>
         </div>
-        <div className="calc-price" aria-live="polite" style={{ marginTop: 18 }}>
-          {money(total)}<small style={{ display: 'block', marginTop: 8 }}>per month at list price</small>
-        </div>
-        <p className="muted" style={{ fontSize: 13, margin: '8px 0 0' }}>
+        <p className="muted" style={{ fontSize: 13, margin: '16px 0 0' }}>
           Combined list price of your clients’ workspaces, not your margin. Partner pricing is shared during onboarding.
         </p>
       </Reveal>
@@ -128,9 +130,7 @@ export default function Partners() {
         <div className="wrap form-layout" style={{ alignItems: 'center' }}>
           <Reveal>
             <p className="eyebrow">For MSPs and agencies</p>
-            <h1 className="display h1" style={{ fontSize: 'clamp(42px, 6vw, 82px)' }}>
-              Own the <span className="mark">AI relationship</span> with your clients.
-            </h1>
+            <h1 className="display h1">Own the AI relationship with your clients.</h1>
             <p className="lede">
               Your clients are adopting AI with or without you. Swift Owl lets you guide them into it safely and profitably,
               and build a new recurring revenue stream while you do it.
@@ -162,7 +162,7 @@ export default function Partners() {
           <div className="why-grid">
             {WHY.map(([icon, t, p], i) => (
               <Reveal key={t} className="why-card" delay={i * 0.1}>
-                <span className="sec-icon" style={{ background: 'var(--violet-soft)', color: 'var(--violet)' }}><Icon name={icon} size={22} /></span>
+                <span className="sec-icon"><Icon name={icon} size={22} /></span>
                 <h3 className="h3">{t}</h3>
                 <p>{p}</p>
               </Reveal>

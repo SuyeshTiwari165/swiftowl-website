@@ -1,4 +1,4 @@
-# Swift Owl marketing website
+# SwiftOwl marketing website
 
 React + Vite site for swiftowl.ai. Separate from the Flask app in `../code`.
 

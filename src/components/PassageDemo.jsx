@@ -144,7 +144,7 @@ export default function PassageDemo() {
     >
       <div className="demo-bar">
         <div className="demo-dots"><i /><i /><i /></div>
-        <span className="mono">Ask Swift Owl · try a question</span>
+        <span className="mono">Ask SwiftOwl · try a question</span>
       </div>
 
       <div className="demo-body">

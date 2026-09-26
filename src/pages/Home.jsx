@@ -30,7 +30,7 @@ function Hero() {
           </h1>
           <Reveal delay={0.5} y={16}>
             <p className="lede">
-              Swift Owl is a private AI workspace built around your company’s own knowledge.
+              SwiftOwl is a private AI workspace built around your company’s own knowledge.
               Three AI agents capture your notes, run your tasks and keep everyone on track,
               while your documents stay confidential.
             </p>
@@ -82,7 +82,7 @@ function Problem() {
           ))}
         </div>
         <Reveal className="fix-line band-cream">
-          <p>Swift Owl fixes this: one secure workspace, with your company’s knowledge built in.</p>
+          <p>SwiftOwl fixes this: one secure workspace, with your company’s knowledge built in.</p>
           <Link className="btn btn-ghost" to="/start-free-trial">Start free trial <span className="arrow">→</span></Link>
         </Reveal>
       </div>
@@ -116,7 +116,7 @@ function AgentsSection() {
 }
 
 const FLOW = [
-  { k: 'You bring in', h: 'Your documents', p: 'SOPs, contracts, notes and decks you add to Swift Owl.' },
+  { k: 'You bring in', h: 'Your documents', p: 'SOPs, contracts, notes and decks you add to SwiftOwl.' },
   { k: 'Stays with you', h: 'Indexed on your infrastructure', p: 'Your full library is indexed where it lives.' },
   { k: 'Retrieved', h: 'The relevant passage', p: 'Only the passage that answers the question is picked.', cls: 'is-passage' },
   { k: 'Reasoned over', h: 'The model', p: 'Sees that passage and nothing else.', cls: 'is-model' },
@@ -151,7 +151,7 @@ function PrivacyFlow() {
         </div>
         <div className="trust-row">
           {[
-            ['Never the open web', 'Swift Owl doesn’t browse the open web, so answers come from your own knowledge.'],
+            ['Never the open web', 'SwiftOwl doesn’t browse the open web, so answers come from your own knowledge.'],
             ['Not used for AI training', 'Your documents are never used to train any AI model, ours or anyone else’s.'],
             ['Protected by contract', 'Commercial agreements, privacy controls and data-retention safeguards cover your information.'],
           ].map(([h, p], i) => (
@@ -169,7 +169,7 @@ function PrivacyFlow() {
 function HowItWorks() {
   const steps = [
     ['Ask', 'Start with a question, task or idea, the way you’d ask a teammate. No prompt engineering.'],
-    ['Think', 'Swift Owl reasons over your knowledge and workspace: notes, tasks and past conversations.'],
+    ['Think', 'SwiftOwl reasons over your knowledge and workspace: notes, tasks and past conversations.'],
     ['Deliver', 'A draft, tasks in Pilot, notes in Scout. Clear, ready to use, and better over time.'],
   ]
   return (
@@ -228,14 +228,14 @@ function Compare() {
     <section className="section section-soft">
       <div className="wrap">
         <Reveal className="section-head">
-          <p className="eyebrow">Swift Owl vs generic AI tools</p>
+          <p className="eyebrow">SwiftOwl vs generic AI tools</p>
           <h2 className="display h2">Built for how businesses actually work.</h2>
         </Reveal>
-        <Reveal className="compare" role="table" aria-label="Swift Owl compared with generic AI tools">
+        <Reveal className="compare" role="table" aria-label="SwiftOwl compared with generic AI tools">
           <div className="compare-row compare-head" role="row">
             <div role="columnheader">What matters</div>
             <div role="columnheader">Generic AI</div>
-            <div role="columnheader" className="us">Swift Owl</div>
+            <div role="columnheader" className="us">SwiftOwl</div>
           </div>
           {ROWS.map(([what, them, us], i) => (
             <motion.div
@@ -358,7 +358,7 @@ function PartnerBand() {
         <div>
           <p className="eyebrow">For MSPs and agencies</p>
           <h2 className="display h2" style={{ fontSize: 'clamp(28px, 3.4vw, 40px)' }}>Run an MSP or agency? Own the AI relationship with your clients.</h2>
-          <p>Offer Swift Owl to your clients and build a new recurring revenue stream, safely and profitably.</p>
+          <p>Offer SwiftOwl to your clients and build a new recurring revenue stream, safely and profitably.</p>
         </div>
         <Link className="btn btn-ghost" to="/partners">See the partner program <span className="arrow">→</span></Link>
       </Reveal>

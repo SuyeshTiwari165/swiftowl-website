@@ -21,7 +21,7 @@ function structuredData(route) {
       jsonLd({
         '@context': 'https://schema.org',
         '@type': 'Organization',
-        name: 'Swift Owl',
+        name: 'SwiftOwl',
         url: SITE_URL,
         logo: `${SITE_URL}/logo.svg`,
         sameAs: ['https://www.linkedin.com/company/swiftowlai'],
@@ -29,7 +29,7 @@ function structuredData(route) {
       jsonLd({
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'Swift Owl',
+        name: 'SwiftOwl',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description: route.description,
@@ -56,7 +56,7 @@ function head(route) {
     route.noindex ? '<meta name="robots" content="noindex" />' : '<meta name="robots" content="index, follow" />',
     route.noindex ? '' : `<link rel="canonical" href="${url}" />`,
     '<meta property="og:type" content="website" />',
-    '<meta property="og:site_name" content="Swift Owl" />',
+    '<meta property="og:site_name" content="SwiftOwl" />',
     `<meta property="og:title" content="${esc(route.title)}" />`,
     `<meta property="og:description" content="${esc(route.description)}" />`,
     `<meta property="og:url" content="${url}" />`,

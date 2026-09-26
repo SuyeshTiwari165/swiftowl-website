@@ -31,13 +31,13 @@ export default function DayTimeline() {
   const ev = EVENTS[idx]
 
   return (
-    <section className="day" ref={ref} aria-label="A day with Swift Owl">
+    <section className="day" ref={ref} aria-label="A day with SwiftOwl">
       <motion.div className="day-sticky" style={{ color: ink }}>
         <motion.div className="day-sky" style={{ background: sky }} />
         <motion.div className="day-orb" style={{ x: orbX, y: orbY, background: orbBg, boxShadow: orbGlow }} aria-hidden="true" />
         <div className="day-content">
           <div className="wrap">
-            <p className="eyebrow">A day with Swift Owl</p>
+            <p className="eyebrow">A day with SwiftOwl</p>
             <div className="day-grid">
               <div className="day-clock" aria-live="polite">
                 <AnimatePresence mode="wait">

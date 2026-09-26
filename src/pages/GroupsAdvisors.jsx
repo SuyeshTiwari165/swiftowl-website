@@ -231,7 +231,7 @@ export default function GroupsAdvisors() {
           </Reveal>
           <Reveal><AdvisorBuilder /></Reveal>
           <Reveal>
-            <CheckList className="checks" items={['Custom advisors learn only from the knowledge you bring into Swift Owl. Nothing else.']} />
+            <CheckList className="checks" items={['Custom advisors learn only from the knowledge you bring into SwiftOwl. Nothing else.']} />
           </Reveal>
         </div>
       </section>

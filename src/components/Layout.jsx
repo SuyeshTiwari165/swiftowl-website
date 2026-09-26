@@ -67,9 +67,9 @@ function Nav() {
   return (
     <header className={'nav' + (scrolled ? ' scrolled' : '') + (open ? ' menu-open' : '')}>
       <div className="wrap nav-inner">
-        <Link to="/" className="brand" aria-label="Swift Owl home">
-          <img src="/logo.svg" alt="" width="40" height="34" />
-          Swift Owl
+        <Link to="/" className="brand" aria-label="SwiftOwl home">
+          <img src="/logo.svg" alt="" width="40" height="26" />
+          SwiftOwl
         </Link>
         <nav className="nav-links" aria-label="Main">
           {LINKS.map((l) =>
@@ -111,7 +111,7 @@ function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div>
-            <Link to="/" className="brand"><img src="/logo.svg" alt="" width="40" height="34" />Swift Owl</Link>
+            <Link to="/" className="brand"><img src="/logo.svg" alt="" width="40" height="26" />SwiftOwl</Link>
             <p className="footer-blurb">
               The private AI workspace built around your company’s own knowledge.
             </p>
@@ -144,7 +144,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Swift Owl, a dba of Web Access Inc. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} SwiftOwl, a dba of Web Access Inc. All rights reserved.</span>
           <span className="footer-legal">
             <Link to="/privacy-policy">Privacy policy</Link>
             <Link to="/terms">Terms of service</Link>

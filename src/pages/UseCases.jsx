@@ -154,7 +154,7 @@ export default function UseCases() {
           <Reveal className="section-head">
             <p className="eyebrow">By team</p>
             <h2 className="display h2">One secure workspace for every team.</h2>
-            <p className="lede">Pick a team to see what it asks Swift Owl.</p>
+            <p className="lede">Pick a team to see what it asks SwiftOwl.</p>
           </Reveal>
           <Reveal><TeamPicker /></Reveal>
         </div>

@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Icon } from './ui'
 
 const AGENTS = [
-  { id: 'scout', name: 'SCOUT', title: 'Captures what matters', body: 'Scouts your activity inside Swift Owl, summarises it, and keeps notes you can reach in seconds.' },
+  { id: 'scout', name: 'SCOUT', title: 'Captures what matters', body: 'Scouts your activity inside SwiftOwl, summarises it, and keeps notes you can reach in seconds.' },
   { id: 'pilot', name: 'PILOT', title: 'Runs your to-do list', body: 'Creates your tasks, guides you through them, and reshuffles the plan as things get done, or don’t.' },
   { id: 'coach', name: 'COACH', title: 'Keeps you on track', body: 'Spots the areas you’re neglecting and nudges you on what you’re missing before it slips.' },
 ]

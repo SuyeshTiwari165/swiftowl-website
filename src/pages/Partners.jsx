@@ -5,7 +5,7 @@ import { Icon, Reveal, money } from '../components/ui'
 import { Field, Seg, SubmitRow, Success, useForm } from '../components/Forms'
 
 const WHY = [
-  ['chart', 'New recurring revenue', 'Add Swift Owl to every client engagement with simple, whole-company pricing that’s easy to resell.'],
+  ['chart', 'New recurring revenue', 'Add SwiftOwl to every client engagement with simple, whole-company pricing that’s easy to resell.'],
   ['shield', 'Safe AI adoption', 'Move clients off risky public AI tools and onto a secure, governed workspace you control.'],
   ['compass', 'Stay the expert', 'Configure company context and custom advisors for each client. You deliver the value and keep the relationship.'],
 ]
@@ -48,7 +48,7 @@ function Portfolio() {
     <div className="portfolio">
       <Reveal>
         <p className="eyebrow">Size your opportunity</p>
-        <h2 className="display h2">See what your client base could run on Swift Owl.</h2>
+        <h2 className="display h2">See what your client base could run on SwiftOwl.</h2>
         <p className="lede" style={{ marginTop: 22 }}>
           Move the sliders to match your book of business. We’ll walk you through partner pricing and margins when you join.
         </p>
@@ -71,7 +71,7 @@ function Portfolio() {
         </div>
         <div className="calc-result">
           <div className="calc-break" style={{ margin: 0, padding: 0, border: 0 }}>
-            <div><span>People you’d bring onto Swift Owl</span><span>{(clients * team).toLocaleString()}</span></div>
+            <div><span>People you’d bring onto SwiftOwl</span><span>{(clients * team).toLocaleString()}</span></div>
             <div><span>List price per client</span><span>{money(perClient)}/mo</span></div>
           </div>
           <div className="calc-price" aria-live="polite" style={{ marginTop: 20 }}>
@@ -132,7 +132,7 @@ export default function Partners() {
             <p className="eyebrow">For MSPs and agencies</p>
             <h1 className="display h1">Own the AI relationship with your clients.</h1>
             <p className="lede">
-              Your clients are adopting AI with or without you. Swift Owl lets you guide them into it safely and profitably,
+              Your clients are adopting AI with or without you. SwiftOwl lets you guide them into it safely and profitably,
               and build a new recurring revenue stream while you do it.
             </p>
             <div className="hero-actions" style={{ marginTop: 32 }}>
@@ -156,7 +156,7 @@ export default function Partners() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <Reveal className="section-head">
-            <p className="eyebrow">Why partner with Swift Owl</p>
+            <p className="eyebrow">Why partner with SwiftOwl</p>
             <h2 className="display h2">A better future for your practice.</h2>
           </Reveal>
           <div className="why-grid">
@@ -189,7 +189,7 @@ export default function Partners() {
         <div className="wrap form-layout">
           <Reveal>
             <p className="eyebrow">Apply</p>
-            <h2 className="display h2">Bring Swift Owl to your clients.</h2>
+            <h2 className="display h2">Bring SwiftOwl to your clients.</h2>
             <p className="lede" style={{ marginTop: 22 }}>
               Join the partner program and lead your clients into the AI era, safely and profitably.
             </p>

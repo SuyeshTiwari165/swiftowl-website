@@ -12,7 +12,7 @@ const WITHOUT = [
   'Compliance violations go unnoticed. No audit trail.',
 ]
 const WITH = [
-  'All company knowledge lives securely inside Swift Owl.',
+  'All company knowledge lives securely inside SwiftOwl.',
   'Only minimal, filtered context is ever used.',
   'Your data never touches public AI training pipelines.',
   'Full audit trail. Know what happened, who did it, and when.',
@@ -24,7 +24,7 @@ function RiskToggle() {
   return (
     <div className={'risk' + (safe ? ' is-safe' : '')}>
       <div className="risk-switch" role="radiogroup" aria-label="Compare">
-        {[['Without Swift Owl', false], ['With Swift Owl', true]].map(([label, val]) => (
+        {[['Without SwiftOwl', false], ['With SwiftOwl', true]].map(([label, val]) => (
           <button key={label} role="radio" aria-checked={safe === val} onClick={() => setSafe(val)}>
             {safe === val && <motion.span layoutId="risk-pill" className="risk-pill" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
             <span>{label}</span>
@@ -143,7 +143,7 @@ export default function Security() {
           <Reveal>
             <p className="eyebrow">Security you can trust</p>
             <h1 className="display h1">Your data is private. Your trust is our priority.</h1>
-            <p className="lede">Swift Owl is built with security and privacy by design, so your team can work with AI confidently.</p>
+            <p className="lede">SwiftOwl is built with security and privacy by design, so your team can work with AI confidently.</p>
             <div className="hero-actions" style={{ marginTop: 32 }}>
               <Link className="btn btn-primary" to="/start-free-trial">Start free trial <span className="arrow">→</span></Link>
               <Link className="btn btn-ghost" to="/contact">Request security docs</Link>
@@ -163,7 +163,7 @@ export default function Security() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="wrap pricing">
           <Reveal>
-            <p className="eyebrow">The risk without Swift Owl</p>
+            <p className="eyebrow">The risk without SwiftOwl</p>
             <h2 className="display h2">What happens when your data goes unprotected?</h2>
             <p className="lede" style={{ marginTop: 22 }}>
               Every time someone pastes company information into a public AI tool, that data leaves your control for good.

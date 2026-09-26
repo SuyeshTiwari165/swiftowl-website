@@ -1,10 +1,12 @@
 import { useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon, Reveal } from './ui'
+import Mesh from './Mesh'
 
 export function PageCta({ title, lede = 'Set up your workspace in minutes. Free for 30 days, no credit card.' }) {
   return (
-    <section className="section cta">
+    <section className="cta">
+      <Mesh variant="cta" flip />
       <div className="wrap">
         <Reveal>
           <h2 className="display h2">{title}</h2>

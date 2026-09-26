@@ -20,23 +20,24 @@ export default function DayTimeline() {
     setIdx(Math.min(EVENTS.length - 1, Math.max(0, Math.floor(p * EVENTS.length))))
   })
 
-  const sky = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.7, 0.8, 1], ['#ffe3d1', '#dfe9ff', '#eef2ff', '#ffdcc4', '#6d4fc4', '#1d1640'])
-  const ink = useTransform(scrollYProgress, [0, 0.74, 0.8], ['#17132b', '#17132b', '#ffffff'])
+  // Brand palette across a working day: cream → pale blue → sherbet dusk → indigo → navy.
+  const sky = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.7, 0.8, 1], ['#f5e9d4', '#e6eeff', '#f6f9fc', '#ffd9bf', '#665efd', '#1c1e54'])
+  const ink = useTransform(scrollYProgress, [0, 0.74, 0.8], ['#0d253d', '#0d253d', '#ffffff'])
   const orbX = useTransform(scrollYProgress, [0, 1], ['6vw', '86vw'])
   const orbY = useTransform(scrollYProgress, STOPS, ['62vh', '22vh', '10vh', '22vh', '58vh'])
-  const orbBg = useTransform(scrollYProgress, [0, 0.5, 0.8, 1], ['#ffb489', '#fff6dc', '#ff9f6b', '#e9e6ff'])
+  const orbBg = useTransform(scrollYProgress, [0, 0.5, 0.8, 1], ['#ffab72', '#fff6dc', '#ff9a5a', '#dfdefd'])
   const orbGlow = useTransform(orbBg, (c) => `0 0 120px 40px ${c}`)
 
   const ev = EVENTS[idx]
 
   return (
-    <section className="day" ref={ref} aria-label="A day with Swift Owl">
+    <section className="day" ref={ref} aria-label="A day with SwiftOwl">
       <motion.div className="day-sticky" style={{ color: ink }}>
         <motion.div className="day-sky" style={{ background: sky }} />
         <motion.div className="day-orb" style={{ x: orbX, y: orbY, background: orbBg, boxShadow: orbGlow }} aria-hidden="true" />
         <div className="day-content">
           <div className="wrap">
-            <p className="eyebrow" style={{ color: 'inherit', opacity: 0.6 }}>A day with Swift Owl</p>
+            <p className="eyebrow">A day with SwiftOwl</p>
             <div className="day-grid">
               <div className="day-clock" aria-live="polite">
                 <AnimatePresence mode="wait">
@@ -63,7 +64,7 @@ export default function DayTimeline() {
                       exit={{ opacity: 0, x: -30 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <span className="mono" style={{ fontSize: 12, letterSpacing: '0.1em', opacity: 0.6 }}>{ev.who.toUpperCase()}</span>
+                      <span className="day-who">{ev.who.toUpperCase()}</span>
                       <h3 className="h3">{ev.title}</h3>
                       <p style={{ opacity: 0.8 }}>{ev.body}</p>
                     </motion.div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Icon } from './ui'
+import Mesh from './Mesh'
 import { APP_URL } from '../lib/forms'
 import { SITE_URL, metaFor } from '../lib/routes'
 
@@ -64,11 +65,11 @@ function Nav() {
   }, [open])
 
   return (
-    <header className={'nav' + (scrolled || open ? ' scrolled' : '')}>
+    <header className={'nav' + (scrolled ? ' scrolled' : '') + (open ? ' menu-open' : '')}>
       <div className="wrap nav-inner">
-        <Link to="/" className="brand" aria-label="Swift Owl home">
-          <img src="/logo.svg" alt="" width="40" height="34" />
-          Swift Owl
+        <Link to="/" className="brand" aria-label="SwiftOwl home">
+          <img src="/logo.svg" alt="" width="40" height="26" />
+          SwiftOwl
         </Link>
         <nav className="nav-links" aria-label="Main">
           {LINKS.map((l) =>
@@ -110,8 +111,8 @@ function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div>
-            <Link to="/" className="brand"><img src="/logo.svg" alt="" width="40" height="34" />Swift Owl</Link>
-            <p className="muted" style={{ fontSize: 15, maxWidth: '32ch', marginTop: 14 }}>
+            <Link to="/" className="brand"><img src="/logo.svg" alt="" width="40" height="26" />SwiftOwl</Link>
+            <p className="footer-blurb">
               The private AI workspace built around your company’s own knowledge.
             </p>
           </div>
@@ -143,7 +144,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Swift Owl, a dba of Web Access Inc. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} SwiftOwl, a dba of Web Access Inc. All rights reserved.</span>
           <span className="footer-legal">
             <Link to="/privacy-policy">Privacy policy</Link>
             <Link to="/terms">Terms of service</Link>
@@ -155,15 +156,26 @@ function Footer() {
   )
 }
 
+// The gradient mesh sits behind the nav and the top of every page. Home gets the
+// full wash, inner pages a shorter one, the legal documents a slim band.
+function meshVariant(pathname) {
+  const p = pathname.replace(/\/+$/, '') || '/'
+  if (p === '/') return 'hero'
+  if (p === '/privacy-policy' || p === '/terms') return 'slim'
+  return 'page'
+}
+
 export default function Layout() {
+  const { pathname } = useLocation()
   useHashScroll()
   useSeo()
   return (
-    <>
+    <div className="site">
+      <Mesh variant={meshVariant(pathname)} />
       <a href="#main" className="sr-only">Skip to content</a>
       <Nav />
       <main id="main"><Outlet /></main>
       <Footer />
-    </>
+    </div>
   )
 }

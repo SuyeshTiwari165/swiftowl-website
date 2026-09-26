@@ -17,13 +17,13 @@ export default function Contact({ demo = false }) {
       <div className="wrap form-layout">
         <Reveal>
           <p className="eyebrow">{demo ? 'Book a demo' : 'Contact us'}</p>
-          <h1 className="display h1" style={{ fontSize: 'clamp(42px, 5.6vw, 76px)' }}>
-            {demo ? <>See Swift Owl on <span className="mark">your</span> work.</> : <>Talk to a person, <span className="mark">not a bot</span>.</>}
+          <h1 className="display h1">
+            {demo ? <>See SwiftOwl on your work.</> : <>Talk to a person, not a bot.</>}
           </h1>
           <p className="lede">
             {demo
               ? 'A 30-minute walkthrough with our team. Bring a real document or workflow and we’ll show you Scout, Pilot and Coach on it.'
-              : 'Questions about pricing, security, or rolling Swift Owl out to your team? Send us a note.'}
+              : 'Questions about pricing, security, or rolling SwiftOwl out to your team? Send us a note.'}
           </p>
           <div className="contact-list">
             <div className="contact-item">

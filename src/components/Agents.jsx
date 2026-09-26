@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Icon } from './ui'
 
 const AGENTS = [
-  { id: 'scout', name: 'SCOUT', title: 'Captures what matters', body: 'Scouts your activity inside Swift Owl, summarises it, and keeps notes you can reach in seconds.' },
+  { id: 'scout', name: 'SCOUT', title: 'Captures what matters', body: 'Scouts your activity inside SwiftOwl, summarises it, and keeps notes you can reach in seconds.' },
   { id: 'pilot', name: 'PILOT', title: 'Runs your to-do list', body: 'Creates your tasks, guides you through them, and reshuffles the plan as things get done, or don’t.' },
   { id: 'coach', name: 'COACH', title: 'Keeps you on track', body: 'Spots the areas you’re neglecting and nudges you on what you’re missing before it slips.' },
 ]
@@ -178,7 +178,7 @@ function CoachScreen() {
         {AREAS.map((a, i) => (
           <div key={a.name}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 6 }}>
-              <span>{a.name}</span><span className="mono" style={{ opacity: 0.6, fontSize: 12 }}>{a.v}%</span>
+              <span>{a.name}</span><span className="tnum" style={{ opacity: 0.6, fontSize: 12 }}>{a.v}%</span>
             </div>
             <div className={'meter' + (a.low ? ' low' : '')}>
               <motion.i initial={{ width: 0 }} animate={{ width: `${a.v}%` }} transition={{ duration: 0.9, delay: 0.1 + i * 0.1 }} />

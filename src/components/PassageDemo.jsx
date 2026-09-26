@@ -144,9 +144,10 @@ export default function PassageDemo() {
     >
       <div className="demo-bar">
         <div className="demo-dots"><i /><i /><i /></div>
-        <span className="mono">Ask Swift Owl · try a question</span>
+        <span className="mono">Ask SwiftOwl · try a question</span>
       </div>
 
+      <div className="demo-body">
       <div className="demo-questions" role="group" aria-label="Example questions">
         {QUESTIONS.map((item, i) => (
           <button key={i} className="demo-q" aria-pressed={i === qi} onClick={() => ask(i)}>
@@ -203,7 +204,7 @@ export default function PassageDemo() {
                 </motion.span>
               </motion.div>
             ) : (
-              <p style={{ margin: 0, fontSize: 12.5, color: 'rgba(255,255,255,.45)' }}>
+              <p style={{ margin: 0, fontSize: 12.5, color: 'rgba(255,255,255,.65)' }}>
                 {phase === 'scan' ? 'Searching your library…' : 'Found one relevant passage'}
               </p>
             )}
@@ -239,11 +240,12 @@ export default function PassageDemo() {
           </div>
         </div>
       </div>
+      </div>
 
       <div className="demo-foot">
-        <span><b>12</b> documents searched on your servers</span>
-        <span className="sent"><b>{sent ? 1 : 0}</b> passage sent</span>
-        <span className="masked"><b>{masked ? n : 0}</b> personal details masked</span>
+        <div><b>12</b><span>documents searched on your servers</span></div>
+        <div className="sent"><b>{sent ? 1 : 0}</b><span>passage sent</span></div>
+        <div className="masked"><b>{masked ? n : 0}</b><span>personal details masked</span></div>
       </div>
     </div>
   )

@@ -41,7 +41,7 @@ function GroupDemo() {
         ))}
       </ol>
       <div className="thread">
-        <div className="demo-label" style={{ color: 'rgba(255,255,255,.5)' }}>
+        <div className="demo-label">
           <span># product-launch</span><span>4 people · 2 advisors</span>
         </div>
         <div className="thread-msgs" aria-live="polite">
@@ -122,7 +122,7 @@ function AdvisorBuilder() {
       </div>
 
       <div className="builder-preview" aria-live="polite">
-        <p className="demo-label" style={{ color: 'rgba(255,255,255,.5)' }}><span>4. Invite it to a group</span></p>
+        <p className="demo-label"><span>4. Invite it to a group</span></p>
         <div className="adv-card">
           <motion.span key={initials} className="adv-avatar" initial={{ scale: 0.6 }} animate={{ scale: 1 }}>{initials}</motion.span>
           <div>
@@ -173,9 +173,7 @@ export default function GroupsAdvisors() {
         <div className="wrap">
           <Reveal className="section-head" style={{ maxWidth: 900 }}>
             <p className="eyebrow">Groups and advisors</p>
-            <h1 className="display h1" style={{ fontSize: 'clamp(42px, 6.4vw, 88px)' }}>
-              Humans and AI working together. <span className="mark">In the same room.</span>
-            </h1>
+            <h1 className="display h1">Humans and AI working together. In the same room.</h1>
             <p className="lede">
               Create groups that bring your team and AI advisors together to talk, share knowledge, solve problems and get real work done.
             </p>
@@ -215,7 +213,7 @@ export default function GroupsAdvisors() {
           <div className="why-grid adv-grid">
             {ADVISORS.map(([icon, t, p], i) => (
               <Reveal key={t} className={'why-card' + (i === 5 ? ' why-card-accent' : '')} delay={(i % 3) * 0.08}>
-                <span className="sec-icon" style={{ background: 'var(--violet-soft)', color: 'var(--violet)' }}><Icon name={icon} size={22} /></span>
+                <span className="sec-icon"><Icon name={icon} size={22} /></span>
                 <h3 className="h3">{t}</h3>
                 <p>{p}</p>
               </Reveal>
@@ -233,7 +231,7 @@ export default function GroupsAdvisors() {
           </Reveal>
           <Reveal><AdvisorBuilder /></Reveal>
           <Reveal>
-            <CheckList className="checks" items={['Custom advisors learn only from the knowledge you bring into Swift Owl. Nothing else.']} />
+            <CheckList className="checks" items={['Custom advisors learn only from the knowledge you bring into SwiftOwl. Nothing else.']} />
           </Reveal>
         </div>
       </section>

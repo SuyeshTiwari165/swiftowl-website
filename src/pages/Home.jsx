@@ -117,7 +117,7 @@ function AgentsSection() {
 
 const FLOW = [
   { k: 'You bring in', h: 'Your documents', p: 'SOPs, contracts, notes and decks you add to SwiftOwl.' },
-  { k: 'Stays with you', h: 'Indexed on your infrastructure', p: 'Your full library is indexed where it lives.' },
+  { k: 'Held securely', h: 'Indexed in your workspace', p: 'Indexed on SwiftOwl’s infrastructure, isolated to your workspace.' },
   { k: 'Retrieved', h: 'The relevant passage', p: 'Only the passage that answers the question is picked.', cls: 'is-passage' },
   { k: 'Reasoned over', h: 'The model', p: 'Sees that passage and nothing else.', cls: 'is-model' },
   { k: 'You get', h: 'An answer with its source', p: 'Notes, tasks, drafts and briefs, ready to use.' },

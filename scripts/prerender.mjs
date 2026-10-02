@@ -9,22 +9,25 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dist = path.join(root, 'dist')
 const ssrEntry = pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href
 
-const { render, ROUTES, NOT_FOUND, ALIASES, SITE_URL, OG_IMAGE, metaFor, SECURITY_FAQS } = await import(ssrEntry)
+const { render, ROUTES, NOT_FOUND, ALIASES, SITE_URL, OG_IMAGE, SOCIAL_LINKS, metaFor, SECURITY_FAQS } = await import(ssrEntry)
+// SOCIAL_LINKS entries are {name, url}; the X one doubles as the twitter:site handle.
+const X_HANDLE = '@' + new URL(SOCIAL_LINKS.find((s) => s.name === 'X').url).pathname.replace(/\/+/g, '')
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf-8')
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 const jsonLd = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`
 
 function structuredData(route) {
+  const blocks = []
   if (route.path === '/') {
-    return [
+    blocks.push(
       jsonLd({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: 'SwiftOwl',
         url: SITE_URL,
         logo: `${SITE_URL}/logo.svg`,
-        sameAs: ['https://www.linkedin.com/company/swiftowlai'],
+        sameAs: SOCIAL_LINKS.map((s) => s.url),
       }),
       jsonLd({
         '@context': 'https://schema.org',
@@ -33,18 +36,30 @@ function structuredData(route) {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description: route.description,
+        inLanguage: 'en-US',
         offers: { '@type': 'Offer', price: '199', priceCurrency: 'USD', description: '$199/month includes 7 users; $14/month per additional user. 30-day free trial.' },
       }),
-    ]
+    )
+  } else if (!route.noindex) {
+    // A flat two-level breadcrumb (Home > this page) for every indexable
+    // inner page — cheap to derive, and a real rich-result candidate.
+    blocks.push(jsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+        { '@type': 'ListItem', position: 2, name: route.crumb || route.title, item: SITE_URL + route.path },
+      ],
+    }))
   }
   if (route.path === '/security') {
-    return [jsonLd({
+    blocks.push(jsonLd({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: SECURITY_FAQS.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-    })]
+    }))
   }
-  return []
+  return blocks
 }
 
 function head(route) {
@@ -57,6 +72,7 @@ function head(route) {
     route.noindex ? '' : `<link rel="canonical" href="${url}" />`,
     '<meta property="og:type" content="website" />',
     '<meta property="og:site_name" content="SwiftOwl" />',
+    '<meta property="og:locale" content="en_US" />',
     `<meta property="og:title" content="${esc(route.title)}" />`,
     `<meta property="og:description" content="${esc(route.description)}" />`,
     `<meta property="og:url" content="${url}" />`,
@@ -64,6 +80,7 @@ function head(route) {
     '<meta property="og:image:width" content="1200" />',
     '<meta property="og:image:height" content="630" />',
     '<meta name="twitter:card" content="summary_large_image" />',
+    `<meta name="twitter:site" content="${X_HANDLE}" />`,
     `<meta name="twitter:title" content="${esc(route.title)}" />`,
     `<meta name="twitter:description" content="${esc(route.description)}" />`,
     `<meta name="twitter:image" content="${image}" />`,

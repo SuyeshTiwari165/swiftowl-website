@@ -20,6 +20,8 @@ const PATHS = {
   handshake: 'M2 12l5-5 4 2 4-2 7 5M7 7l-5 5 6 6 2-1 2 2 2-1 2 1 5-5M11 9l-3 3 2 2 3-2',
   layers: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5',
   compass: 'M12 21a9 9 0 100-18 9 9 0 000 18zM15.5 8.5l-2 5-5 2 2-5z',
+  facebook: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+  'brand-x': 'M4 4l16 16M20 4L4 20',
 }
 
 export function Icon({ name, size = 20, stroke = 2, ...rest }) {

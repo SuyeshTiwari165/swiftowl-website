@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Icon } from './ui'
 import Mesh from './Mesh'
 import { APP_URL } from '../lib/forms'
-import { SITE_URL, metaFor } from '../lib/routes'
+import { SITE_URL, SOCIAL_LINKS, metaFor } from '../lib/routes'
 
 const LINKS = [
   { to: '/use-cases', label: 'Use cases' },
@@ -93,18 +93,60 @@ function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div id="mobile-menu" className="mobile-menu" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            {LINKS.map((l, i) => (
-              <motion.div key={l.to} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 * i }}>
-                <Link to={l.to}>{l.label}</Link>
-              </motion.div>
-            ))}
-            <Link className="btn btn-primary" to="/start-free-trial">Start free trial</Link>
-            <Link className="btn btn-ghost" to="/book-a-demo">Book a demo</Link>
-            <a className="btn btn-ghost" href={APP_URL}>Sign in</a>
+            <div className="mobile-menu-inner">
+              {LINKS.map((l, i) => (
+                <motion.div key={l.to} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 * i }}>
+                  <Link to={l.to}>{l.label}</Link>
+                </motion.div>
+              ))}
+              <div className="mobile-menu-actions">
+                <Link className="btn btn-primary" to="/start-free-trial">Start free trial</Link>
+                <Link className="btn btn-ghost" to="/book-a-demo">Book a demo</Link>
+                <a className="mobile-menu-signin" href={APP_URL}>Sign in</a>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </header>
+  )
+}
+
+// LinkedIn and Instagram need more than one shape (a badge + a mark), so they
+// render their own small inline SVG rather than going through the shared
+// single-path <Icon>. Facebook and X are plain single paths and use <Icon>.
+function SocialIcon({ name }) {
+  if (name === 'LinkedIn') {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </svg>
+    )
+  }
+  if (name === 'Instagram') {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    )
+  }
+  if (name === 'Facebook') return <Icon name="facebook" size={18} />
+  return <Icon name="brand-x" size={16} stroke={2.4} />
+}
+
+function SocialLinks() {
+  return (
+    <div className="footer-social" aria-label="SwiftOwl on social media">
+      {SOCIAL_LINKS.map((s) => (
+        <a key={s.name} href={s.url} target="_blank" rel="noreferrer" aria-label={`SwiftOwl on ${s.name}`}>
+          <SocialIcon name={s.name} />
+        </a>
+      ))}
+    </div>
   )
 }
 
@@ -118,6 +160,7 @@ function Footer() {
             <p className="footer-blurb">
               The private AI workspace built around your company’s own knowledge.
             </p>
+            <SocialLinks />
           </div>
           <div>
             <h5>Product</h5>
@@ -142,7 +185,6 @@ function Footer() {
             <ul>
               <li><Link to="/partners">Partner program</Link></li>
               <li><Link to="/contact">Contact</Link></li>
-              <li><a href="https://www.linkedin.com/company/swiftowlai" target="_blank" rel="noreferrer">LinkedIn</a></li>
             </ul>
           </div>
         </div>

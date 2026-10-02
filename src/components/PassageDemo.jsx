@@ -158,7 +158,7 @@ export default function PassageDemo() {
 
       <div className="demo-stage">
         <div className="demo-vault">
-          <div className="demo-label"><span>Your library</span><span>on your servers</span></div>
+          <div className="demo-label"><span>Your library</span></div>
           <div className="doc-grid">
             {DOCS.map((name, i) => {
               const isHit = hitShown && i === cur.doc

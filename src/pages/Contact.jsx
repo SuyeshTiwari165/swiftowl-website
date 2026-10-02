@@ -69,7 +69,7 @@ export default function Contact({ demo = false }) {
                   label={isDemo ? 'What would you like to see?' : 'Message'}
                   optional
                   as="textarea"
-                  placeholder={isDemo ? 'e.g. how Scout handles our meeting notes' : 'How can we help?'}
+                  placeholder={isDemo ? 'e.g. how Scout turns a quick recap into tasks' : 'How can we help?'}
                   value={f.values.message}
                   onChange={f.set('message')}
                 />

@@ -31,8 +31,8 @@ function Hero() {
           <Reveal delay={0.5} y={16}>
             <p className="lede">
               SwiftOwl is a private AI workspace built around your company’s own knowledge.
-              Three AI agents capture your notes, run your tasks and keep everyone on track,
-              while your documents stay confidential.
+              Three AI agents turn your conversations into tasks, brief your team every day
+              and follow up before anything slips, while your documents stay confidential.
             </p>
             <div className="hero-actions">
               <Link className="btn btn-primary" to="/start-free-trial">Start free trial <span className="arrow">→</span></Link>
@@ -103,7 +103,7 @@ function AgentsSection() {
         <div className="agent-notes">
           <Reveal className="agent-note agent-note-cream">
             <Icon name="mail" size={22} />
-            <p>Every morning and evening, Scout emails your whole team a brief, so everyone starts and ends the day aligned.</p>
+            <p>Every morning and evening, Pilot sends your whole team a brief, so everyone starts and ends the day aligned.</p>
           </Reveal>
           <Reveal className="agent-note agent-note-white" delay={0.08}>
             <Icon name="users" size={22} />

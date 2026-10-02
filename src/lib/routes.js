@@ -7,7 +7,7 @@ export const ROUTES = [
   {
     path: '/',
     title: 'SwiftOwl | Private AI Workspace for Your Whole Team',
-    description: 'SwiftOwl is a private AI workspace built around your company’s own knowledge. Scout, Pilot and Coach capture notes, run tasks and keep your team on track. ISO 27001 certified.',
+    description: 'SwiftOwl is a private AI workspace built around your company’s own knowledge. Scout turns conversations into tasks, Pilot briefs your team daily, and Coach follows up automatically. ISO 27001 certified.',
     priority: '1.0',
   },
   {

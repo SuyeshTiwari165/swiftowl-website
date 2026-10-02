@@ -3,7 +3,7 @@
 // Without it (local dev), submissions are validated and logged, not sent.
 const ENDPOINT = import.meta.env.VITE_FORMS_ENDPOINT
 
-export const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.swiftowl.ai'
+export const APP_URL = import.meta.env.VITE_APP_URL || 'https://access.swiftowl.ai'
 
 export async function submitForm(kind, data) {
   const payload = { kind, ...data, page: window.location.pathname, submittedAt: new Date().toISOString() }

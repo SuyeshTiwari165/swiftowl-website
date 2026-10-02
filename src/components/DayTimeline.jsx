@@ -1,12 +1,15 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 
+// Grounded in what each agent actually does: Pilot sends the morning/evening
+// briefing, Scout turns a chat message into tasks (it never listens in on a
+// standup — someone has to type the recap), Coach chases stale tasks.
 const EVENTS = [
-  { time: '7:00', ampm: 'AM', who: 'Scout', title: 'Morning brief', body: 'The team gets today’s priorities in their inbox before anyone logs on.' },
-  { time: '9:30', ampm: 'AM', who: 'Scout', title: 'Standup, captured', body: 'The standup is summarised and every decision is saved where people can find it.' },
-  { time: '11:00', ampm: 'AM', who: 'Pilot', title: 'The plan reshuffles', body: 'A deadline moves, and Pilot updates everyone’s tasks to match.' },
+  { time: '7:00', ampm: 'AM', who: 'Pilot', title: 'Morning brief', body: 'The team gets today’s priorities before anyone logs on.' },
+  { time: '9:30', ampm: 'AM', who: 'Scout', title: 'Notes become tasks', body: 'Someone types their standup recap into chat, and Scout pulls out the action items, owners and deadlines.' },
+  { time: '11:00', ampm: 'AM', who: 'Pilot', title: 'The plan reshuffles', body: 'A deadline moves, and the next briefing reflects the new priorities.' },
   { time: '2:00', ampm: 'PM', who: 'Coach', title: 'A timely nudge', body: 'A reminder about the leads nobody has answered yet.' },
-  { time: '6:00', ampm: 'PM', who: 'Scout', title: 'Evening brief', body: 'What shipped, what carried over. Tomorrow starts clear.' },
+  { time: '6:00', ampm: 'PM', who: 'Pilot', title: 'Evening brief', body: 'What shipped, what carried over. Tomorrow starts clear.' },
 ]
 
 const STOPS = [0, 0.25, 0.5, 0.75, 1]

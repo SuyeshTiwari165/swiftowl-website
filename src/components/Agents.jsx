@@ -3,9 +3,9 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Icon } from './ui'
 
 const AGENTS = [
-  { id: 'scout', name: 'SCOUT', title: 'Captures what matters', body: 'Scouts your activity inside SwiftOwl, summarises it, and keeps notes you can reach in seconds.' },
-  { id: 'pilot', name: 'PILOT', title: 'Runs your to-do list', body: 'Creates your tasks, guides you through them, and reshuffles the plan as things get done, or don’t.' },
-  { id: 'coach', name: 'COACH', title: 'Keeps you on track', body: 'Spots the areas you’re neglecting and nudges you on what you’re missing before it slips.' },
+  { id: 'scout', name: 'SCOUT', title: 'Turns chats into tasks', body: 'Tell Scout what happened, in your own words, and it pulls out the action items, owners and deadlines.' },
+  { id: 'pilot', name: 'PILOT', title: 'Keeps your day on track', body: 'A morning and evening briefing on what’s pending, overdue and worth your attention.' },
+  { id: 'coach', name: 'COACH', title: 'Follows up for you', body: 'Watches your outstanding tasks and nudges the people holding them up, so nothing goes quiet.' },
 ]
 const ROTATE_MS = 7000
 
@@ -80,36 +80,58 @@ export default function Agents() {
   )
 }
 
-const NOTES = [
-  { t: '09:42 · Standup', text: 'Partner portal ships Oct 6. Priya owns pricing copy.' },
-  { t: '11:15 · Client call · Northwind', text: 'Wants SSO before rollout to 40 seats. Follow up Thursday.' },
-  { t: '14:03 · Group: Ops', text: 'New refund rule agreed: prorate after 30 days.' },
-  { t: '16:30 · Advisor: Finance', text: 'Q4 hiring budget capped at 3 roles.' },
+// What Scout actually does: you type or paste an update into chat, and it pulls
+// out the action items, owners and deadlines. It doesn't listen in on meetings
+// or read your other apps — only the conversation you give it.
+const UPDATE = [
+  'Quick recap from standup: Sarah is finalizing the ad creatives, done by Wednesday.',
+  'David needs to send the campaign budget for approval before Friday.',
+  'And I still have to review the landing page.',
+]
+const FOUND = [
+  { text: 'Finalize ad creatives', who: 'Sarah', due: 'Wed' },
+  { text: 'Send campaign budget for approval', who: 'David', due: 'Fri' },
+  { text: 'Review the landing page', who: 'You', due: null },
 ]
 
 function ScoutScreen() {
-  const [n, setN] = useState(1)
+  const [n, setN] = useState(0)
+  const done = n >= UPDATE.length
   useEffect(() => {
-    if (n >= NOTES.length) return
-    const id = setTimeout(() => setN(n + 1), 900)
+    if (done) return
+    const id = setTimeout(() => setN((v) => v + 1), n === 0 ? 500 : 900)
     return () => clearTimeout(id)
-  }, [n])
+  }, [n, done])
   return (
     <>
-      <div className="demo-label"><span>Scout · today’s notes</span><span>auto-captured</span></div>
+      <div className="demo-label"><span>Scout · typed into chat</span><span>{done ? 'action items found' : 'typing…'}</span></div>
       <div className="screen-stack">
         <AnimatePresence initial={false}>
-          {NOTES.slice(0, n).map((note) => (
-            <motion.div key={note.t} className="screen-card" initial={{ opacity: 0, x: -20, height: 0 }} animate={{ opacity: 1, x: 0, height: 'auto' }} transition={{ duration: 0.45 }}>
-              <small>{note.t}</small>
-              {note.text}
+          {UPDATE.slice(0, n).map((line, i) => (
+            <motion.div key={i} className="screen-card" initial={{ opacity: 0, x: -20, height: 0 }} animate={{ opacity: 1, x: 0, height: 'auto' }} transition={{ duration: 0.45 }}>
+              {line}
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
-      {n >= NOTES.length && (
-        <motion.button className="screen-btn" initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setN(1)}>
-          Replay the day
+      <AnimatePresence>
+        {done && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ marginTop: 14 }}>
+            <div className="demo-label"><span>Scout found</span></div>
+            <div className="screen-stack">
+              {FOUND.map((t) => (
+                <div key={t.text} className="screen-card task">
+                  <span>{t.text}</span>
+                  <span className="due">{t.who}{t.due ? ` · ${t.due}` : ''}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {done && (
+        <motion.button className="screen-btn" initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setN(0)}>
+          Replay
         </motion.button>
       )}
     </>

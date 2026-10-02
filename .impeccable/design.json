@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T00:00:00.000Z",
+  "title": "Design System: SwiftOwl",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Signal Indigo",
+        "canonical": "#533afd",
+        "tonalRamp": ["#1f1a5e", "#2e2b8c", "#4434d4", "#533afd", "#665efd", "#9f98fb", "#b9b9f9", "#efeeff"]
+      },
+      "navy": {
+        "role": "neutral",
+        "displayName": "Brand Navy",
+        "canonical": "#1c1e54",
+        "tonalRamp": ["#0d0e2b", "#15173d", "#1c1e54", "#2a2d72", "#3c4090", "#6367b3", "#9da0d2", "#e4e5f5"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0d253d",
+        "tonalRamp": ["#061420", "#0a1e30", "#0d253d", "#17374f", "#2c4d66", "#577b92", "#93aec0", "#d9e4ea"]
+      },
+      "cream": {
+        "role": "secondary",
+        "displayName": "Warm Parchment",
+        "canonical": "#f5e9d4",
+        "tonalRamp": ["#4a3a1f", "#6b542c", "#9b6829", "#c99f5c", "#e3cda0", "#f0ddbd", "#f5e9d4", "#fbf5ea"]
+      },
+      "ruby": {
+        "role": "tertiary",
+        "displayName": "Ruby",
+        "canonical": "#ea2261",
+        "tonalRamp": ["#450a1f", "#6b0f2f", "#94163f", "#c01a4f", "#ea2261", "#f15f8c", "#f7a0bb", "#fde0ea"]
+      },
+      "lemon": {
+        "role": "secondary",
+        "displayName": "Lemon (passage edge)",
+        "canonical": "#9b6829"
+      },
+      "sherbet": {
+        "role": "secondary",
+        "displayName": "Sherbet (mesh-only)",
+        "canonical": "#ffab72"
+      },
+      "magenta": {
+        "role": "tertiary",
+        "displayName": "Magenta (mesh-only)",
+        "canonical": "#f96bee"
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines and section openers only; never above weight 300." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings." },
+      "title": { "displayName": "Title", "purpose": "Card titles, agent names, step headings." },
+      "lede": { "displayName": "Lede", "purpose": "The one supporting paragraph under a section head." },
+      "body": { "displayName": "Body", "purpose": "Default running text." },
+      "label": { "displayName": "Label", "purpose": "Eyebrow tags, agent-name chips, micro-captions on dark panels." },
+      "button": { "displayName": "Button", "purpose": "The system's one weight-400 exception, for pressable confidence." },
+      "mono": { "displayName": "Mono", "purpose": "Data labels and demo chrome." },
+      "tabular": { "displayName": "Ledger Digits", "purpose": "Money, counts, and dates — always tabular-nums." }
+    },
+    "shadows": [
+      { "name": "level-1", "value": "0 1px 3px rgba(0, 55, 112, 0.08)", "purpose": "Default card lift at rest on white." },
+      { "name": "level-2", "value": "0 8px 24px rgba(0, 55, 112, 0.08), 0 2px 6px rgba(0, 55, 112, 0.04)", "purpose": "Floating panels and emphasized cards (hero demo, pricing calculator, agent screen)." },
+      { "name": "focus-glow", "value": "0 0 0 3px rgba(83, 58, 253, 0.16)", "purpose": "Form-field focus ring, paired with an indigo border shift." },
+      { "name": "nudge-lift", "value": "0 20px 40px -20px rgba(0, 0, 0, 0.6)", "purpose": "The Coach agent's notification card floating over a dark panel." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.2, 0.7, 0.2, 1)", "purpose": "Default easing for reveal-on-scroll and hero word animations." },
+      { "name": "duration-fast", "value": "0.15s", "purpose": "Button and link color/border transitions." },
+      { "name": "duration-base", "value": "0.2s", "purpose": "Nav background, card hover, and toggle transitions." },
+      { "name": "mesh-drift", "value": "28s–34s ease-in-out infinite alternate", "purpose": "The gradient mesh's two drifting layers; stilled entirely under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "560px" },
+      { "name": "sm", "value": "700px" },
+      { "name": "mobile", "value": "767px" },
+      { "name": "md", "value": "800px" },
+      { "name": "lg", "value": "900px" },
+      { "name": "xl", "value": "1020px" },
+      { "name": "nav", "value": "1100px" },
+      { "name": "xxl", "value": "1240px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The only filled CTA color in the system — one per section.",
+      "html": "<button class=\"ds-btn-primary\">Start free trial <span class=\"ds-btn-arrow\">→</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 9px 18px; border-radius: 9999px; border: 1px solid #533afd; background: #533afd; color: #fff; font-family: Inter, system-ui, sans-serif; font-size: 16px; font-weight: 400; line-height: 1; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease; } .ds-btn-primary:hover { background: #4434d4; border-color: #4434d4; } .ds-btn-primary:active { background: #2e2b8c; border-color: #2e2b8c; } .ds-btn-primary:focus-visible { outline: 2px solid #533afd; outline-offset: 3px; } .ds-btn-arrow { transition: transform 0.15s ease; } .ds-btn-primary:hover .ds-btn-arrow { transform: translateX(3px); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "The default secondary action beside a primary pill.",
+      "html": "<button class=\"ds-btn-ghost\">Book a demo</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 9px 18px; border-radius: 9999px; border: 1px solid #533afd; background: #fff; color: #533afd; font-family: Inter, system-ui, sans-serif; font-size: 16px; font-weight: 400; line-height: 1; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease; } .ds-btn-ghost:hover { background: #efeeff; border-color: #4434d4; color: #4434d4; } .ds-btn-ghost:focus-visible { outline: 2px solid #533afd; outline-offset: 3px; }"
+    },
+    {
+      "name": "Eyebrow Tag",
+      "kind": "chip",
+      "refersTo": "tag-eyebrow",
+      "description": "The system's one recurring soft-announcement chip — section eyebrows, agent badges, comparison emphasis.",
+      "html": "<span class=\"ds-tag\">Secure AI workspace for teams</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px; background: #dfdefd; color: #4434d4; font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 500; line-height: 1.3; letter-spacing: 0.1px; }"
+    },
+    {
+      "name": "Elevated Card",
+      "kind": "card",
+      "refersTo": "card-elevated",
+      "description": "Forms, the pricing calculator, and other floating panels — white, hairline border, Level 2 shadow.",
+      "html": "<div class=\"ds-card\"><strong class=\"ds-card-title\">15 people</strong><p class=\"ds-card-body\">$407/month</p></div>",
+      "css": ".ds-card { background: #fff; border: 1px solid #e3e8ee; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 55, 112, 0.08), 0 2px 6px rgba(0, 55, 112, 0.04); padding: clamp(24px, 3.5vw, 36px); font-family: Inter, system-ui, sans-serif; } .ds-card-title { display: block; font-size: 22px; font-weight: 300; color: #0d253d; letter-spacing: -0.01em; } .ds-card-body { margin: 8px 0 0; color: #273951; font-size: 16px; font-weight: 300; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Form fields — hairline-input border at rest, indigo border plus a soft glow on focus.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"Work email\" />",
+      "css": ".ds-input { width: 100%; min-height: 40px; padding: 8px 12px; border-radius: 6px; border: 1px solid #a8c3de; background: #fff; color: #0d253d; font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 300; transition: border-color 0.15s, box-shadow 0.15s; } .ds-input::placeholder { color: #64748d; } .ds-input:focus { outline: none; border-color: #533afd; box-shadow: 0 0 0 3px rgba(83, 58, 253, 0.16); }"
+    },
+    {
+      "name": "Product Panel (dark)",
+      "kind": "custom",
+      "refersTo": "panel-product-dark",
+      "description": "The 'what the model sees' / agent-screen surface — ink navy, not to be confused with the featured-tier brand navy.",
+      "html": "<div class=\"ds-panel-dark\"><span class=\"ds-panel-label\">What the model sees</span><p class=\"ds-panel-body\">Only the retrieved passage, identifiers obfuscated.</p></div>",
+      "css": ".ds-panel-dark { background: #0d253d; color: #fff; border-radius: 16px; padding: clamp(18px, 3vw, 28px); font-family: Inter, system-ui, sans-serif; } .ds-panel-label { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0.1px; color: rgba(255,255,255,0.6); margin-bottom: 10px; } .ds-panel-body { margin: 0; font-size: 13px; line-height: 1.5; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Plain-text nav item; soft gray hover fill, indigo when active.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">Security</a>",
+      "css": ".ds-nav-link { display: inline-block; padding: 8px 12px; border-radius: 6px; color: #273951; font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 400; text-decoration: none; transition: color 0.15s, background-color 0.15s; } .ds-nav-link:hover { color: #0d253d; background: rgba(13, 37, 61, 0.05); } .ds-nav-link.is-active { color: #533afd; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Vault and the Passage",
+    "overview": "Everything SwiftOwl holds stays in the vault — the full document library, every raw identifier, every surface that isn't actively proving something. Navy and white are the vault's walls: plain, unornamented, nearly flat. The one thing ever let out is a single warm, lit passage — the retrieved document excerpt, the one sentence that answers the question — and that passage is the only place warmth (cream) is allowed to appear. The system's entire visual argument is this one gesture, repeated: the hero demo, the Security page's data-flow diagram, and the 'Only the passage' headline all dramatize the same idea from a different angle.\n\nThat restraint is in service of trust, not coldness. The system is warm and approachable rather than a sterile enterprise-security vendor: soft fully-rounded buttons and tags, generous whitespace, plain-language copy, and a slow-drifting gradient mesh that gives every page a living, unhurried top instead of a hard corporate band. It explicitly rejects two things: the overtly playful violet-and-amber illustrated brand this project replaced, and the cold, jargon-heavy register of a typical B2B security vendor. One color is allowed to ask for a click — Signal Indigo — and it appears sparingly enough that its one appearance per section still reads as a decision, not decoration.",
+    "keyCharacteristics": [
+      "A single, named warm device — the retrieved-passage signal (cream fill + lemon edge) — plus a looser 'Warm Parchment' use of plain cream as a general breathing-room interlude between denser sections.",
+      "One indigo CTA color, one filled pill per section; everywhere else the palette recedes to ink, white, or a pale tint.",
+      "Display type never rises above weight 300, with tightening negative tracking as size increases — the system's quiet typographic signature.",
+      "Any number that represents money, a count, or a due date renders in tabular figures (font-variant-numeric: tabular-nums).",
+      "Flat-by-default surfaces; the animated SVG gradient mesh is the real depth medium, not box-shadow stacking.",
+      "Two distinct dark fills, never interchanged: ink navy (#0d253d) for 'live product' panels, and brand navy (#1c1e54) for 'featured tier' surfaces."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Signal Indigo is the only filled CTA color in the system. A page section gets exactly one filled pill button; every other action in that section is a ghost or light-fill button, a plain link, or a secondary pill in a non-primary color.", "section": "colors" },
+      { "name": "The Warm Parchment Rule", "body": "Cream has two jobs and they stay visually separable: a plain fill is a general warm interlude; paired with its lemon edge, it is the retrieved-passage signal specifically.", "section": "colors" },
+      { "name": "The No-Loud-Weight Rule", "body": "Display, headline, and title text never render above weight 300. Weight 400 exists in exactly one place: button labels.", "section": "typography" },
+      { "name": "The Ledger Digits Rule", "body": "Any number that is money, a count, or a date renders with font-variant-numeric: tabular-nums.", "section": "typography" },
+      { "name": "The Mesh-Is-Depth Rule", "body": "When a surface needs to feel like it's floating above the page, reach for the gradient mesh or a navy/white polarity flip before reaching for a third, heavier shadow level.", "section": "elevation" },
+      { "name": "The Pill Rule", "body": "Anything the visitor can click or select is either a full pill or, for nav links and table-of-contents entries, a small 6px rounded rectangle.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Signal Indigo to one filled pill per section — The One Signal Rule.",
+      "Do render every money figure, count, or due date with tabular numerals — The Ledger Digits Rule.",
+      "Do reach for the gradient mesh or a navy/white polarity flip before adding a third shadow level — The Mesh-Is-Depth Rule.",
+      "Do keep ink navy and brand navy as two distinct dark fills for two distinct surface roles (live product vs. featured tier).",
+      "Do give the retrieved-passage signal its lemon edge whenever cream is standing in for that specific meaning, not just general warmth."
+    ],
+    "donts": [
+      "Don't render display, headline, or title text above weight 300 — button labels are the system's one deliberate exception.",
+      "Don't use a sharp-cornered rectangle for anything clickable — The Pill Rule.",
+      "Don't use ruby, sherbet, or magenta as a CTA color; ruby is reserved for negative/error signal, sherbet and magenta live only in the mesh.",
+      "Don't replace the gradient mesh with a flat CSS linear-gradient() — the brand's mesh is explicitly organic SVG, not a flat wash.",
+      "Don't stack a third shadow level onto a surface that's already using the mesh or a polarity flip for depth; pick one depth device, not both."
+    ]
+  }
+}

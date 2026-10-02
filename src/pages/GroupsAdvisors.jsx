@@ -11,8 +11,8 @@ const THREAD = [
   { stage: 1, who: 'Strategy advisor', kind: 'advisor', text: 'Three angles: privacy-first AI for teams, productive from day one, and one simple price for the whole company.' },
   { stage: 1, who: 'Market researcher', kind: 'advisor', text: 'Privacy comes up most often in your recent call notes. It’s the angle buyers repeat back to you.' },
   { stage: 2, who: 'Sam', role: 'Product', kind: 'human', text: 'Agreed. Lead with privacy and use day one as the proof point.' },
-  { stage: 3, who: 'Scout', kind: 'agent', text: 'Saved the decision: launch messaging leads with privacy.' },
-  { stage: 3, who: 'Pilot', kind: 'agent', text: 'Created 3 tasks: landing page copy (Maya), launch email (Sam), sales one-pager (Maya).' },
+  { stage: 3, who: 'Scout', kind: 'agent', text: 'Saved the decision, and created 3 tasks: landing page copy (Maya), launch email (Sam), sales one-pager (Maya).' },
+  { stage: 3, who: 'Pilot', kind: 'agent', text: 'Added all three to tomorrow’s morning brief.' },
 ]
 
 function GroupDemo() {

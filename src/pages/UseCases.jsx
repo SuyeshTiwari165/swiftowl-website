@@ -4,8 +4,8 @@ import { Icon, Reveal } from '../components/ui'
 import { PageCta } from '../components/Blocks'
 
 const JOBS = [
-  ['SCOUT', 'Never lose a decision', 'Every meeting and project room summarised, key decisions saved and searchable. Nothing important slips through the cracks.'],
-  ['PILOT', 'A to-do list that runs itself', 'Plans that build themselves and adapt as the week changes. Owners, deadlines and follow-ups handled.'],
+  ['SCOUT', 'Never lose a decision', 'Paste in a call recap or update, and Scout pulls out the action items, owners and deadlines. Searchable in seconds.'],
+  ['PILOT', 'A briefing that keeps you ahead', 'Morning and evening, Pilot surfaces what’s pending, overdue and about to slip — so nothing depends on memory.'],
   ['ONBOARDING', 'Productive from day one', 'New hires get company context and built-in advisors from their first hour. No long ramp-up.'],
   ['DIGESTS', 'A brief, morning and evening', 'The whole team starts and ends the day aligned, automatically. No status meetings required.'],
 ]

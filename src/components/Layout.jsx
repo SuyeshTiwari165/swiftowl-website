@@ -41,7 +41,10 @@ function useHashScroll() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
     if (hash) {
-      const el = document.querySelector(hash)
+      // getElementById, not querySelector(hash): the legal pages' TOC ids
+      // start with a digit (e.g. "3-the-service..."), which is a valid HTML
+      // id but an invalid CSS selector unless escaped — querySelector throws.
+      const el = document.getElementById(hash.slice(1))
       if (el) { el.scrollIntoView({ behavior: 'smooth' }); return }
     }
     window.scrollTo(0, 0)
@@ -144,7 +147,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} SwiftOwl, a dba of Web Access Inc. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} SwiftOwl. All rights reserved.</span>
           <span className="footer-legal">
             <Link to="/privacy-policy">Privacy policy</Link>
             <Link to="/terms">Terms of service</Link>

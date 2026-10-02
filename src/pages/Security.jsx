@@ -53,7 +53,7 @@ function RiskToggle() {
 
 // Each control maps to the flow step it happens in.
 const FLOW = [
-  { h: 'Indexed on your infrastructure', p: 'Documents are indexed on infrastructure under your control, so the source data never leaves.' },
+  { h: 'Indexed on SwiftOwl’s infrastructure', p: 'Documents are indexed there, in a workspace isolated to your company — the source library is never sent to a model provider.' },
   { h: 'Relevant passage retrieved', p: 'Only the document passage needed to answer the request is retrieved.', control: 0 },
   { h: 'Identifiers obfuscated', p: 'Names, emails, phone numbers and account numbers are swapped for tokens in the passage and in your typed message before anything is sent.', control: 1 },
   { h: 'Secure AI processing', p: 'The obfuscated content goes to the AI model provider under a no-training contract.', control: 2 },
@@ -153,7 +153,7 @@ export default function Security() {
             <span className="iso-seal" aria-hidden="true"><Icon name="shield" size={34} stroke={1.6} /></span>
             <p className="eyebrow" style={{ margin: '18px 0 6px' }}>ISO 27001 certified</p>
             <p style={{ margin: 0, color: 'var(--ink-2)' }}>
-              Our information security management system is independently certified to ISO 27001 by ABS Quality Evaluations.
+              Our information security management system is independently certified to ISO 27001.
               The scope covers our production platform and hosting infrastructure, not only our corporate systems.
             </p>
           </Reveal>

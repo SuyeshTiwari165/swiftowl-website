@@ -189,7 +189,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} SwiftOwl. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Web Access Inc., trading as SwiftOwl. 1470 Tobias Gadson Blvd, Ste 202, Charleston, SC 29407.</span>
           <span className="footer-legal">
             <Link to="/privacy-policy">Privacy policy</Link>
             <Link to="/terms">Terms of service</Link>

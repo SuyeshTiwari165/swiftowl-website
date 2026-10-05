@@ -7,4 +7,5 @@ export const SECURITY_FAQS = [
   ['Can I review your security documentation?', 'Yes. Reach out and our team will share the relevant documentation and our ISO 27001 certificate.'],
   ['Do you support MFA?', 'Yes. Role-based access with optional multi-factor authentication is supported.'],
   ['Do you have an incident response plan?', 'Yes. We maintain a documented incident response plan and notify customers transparently.'],
+  ['Can we use SwiftOwl with health information?', 'No. SwiftOwl is not offered as a HIPAA-compliant service, we do not enter into Business Associate Agreements, and protected health information should not be uploaded. If you have a HIPAA requirement, talk to us before you start.'],
 ]

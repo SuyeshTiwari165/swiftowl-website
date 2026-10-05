@@ -54,7 +54,17 @@ export function CountUp({ to, prefix = '', suffix = '', duration = 1.6 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const reduce = useReducedMotion()
-  const [val, setVal] = useState(reduce ? to : 0)
+  // The prerendered/static HTML must show the real number — crawlers, link
+  // previews and no-JS visitors never run the effects below. Start at `to`,
+  // and only drop to 0 once mounted on the client so the count-up can still
+  // play for real visitors without ever shipping "0" as the static content.
+  const [val, setVal] = useState(to)
+
+  useEffect(() => {
+    if (reduce) return
+    setVal(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (!inView || reduce) return

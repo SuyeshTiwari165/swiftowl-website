@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+    <Analytics />
     </Suspense>
   )
 }

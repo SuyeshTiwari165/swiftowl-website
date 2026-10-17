@@ -51,6 +51,24 @@ function useHashScroll() {
   }, [pathname, hash])
 }
 
+// Visible counterpart to the BreadcrumbList JSON-LD scripts/prerender.mjs
+// already writes for every indexable inner page — same two-level Home > page
+// structure, same exclusions (home itself, noindex pages like 404).
+function Breadcrumb() {
+  const { pathname } = useLocation()
+  const m = metaFor(pathname)
+  if (pathname === '/' || m.noindex) return null
+  return (
+    <nav className="breadcrumb wrap" aria-label="Breadcrumb">
+      <ol>
+        <li><Link to="/">Home</Link></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page">{m.crumb || m.title}</li>
+      </ol>
+    </nav>
+  )
+}
+
 function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -219,7 +237,10 @@ export default function Layout() {
       <Mesh variant={meshVariant(pathname)} />
       <a href="#main" className="sr-only">Skip to content</a>
       <Nav />
-      <main id="main"><Outlet /></main>
+      <main id="main">
+        <Breadcrumb />
+        <Outlet />
+      </main>
       <Footer />
     </div>
   )

@@ -133,6 +133,11 @@ p { text-wrap: pretty; }
 .site { position: relative; overflow-x: clip; }
 .site > main, .site > footer { position: relative; z-index: 1; }
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.breadcrumb { padding-top: 24px; }
+.breadcrumb ol { display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; font-size: 13px; font-weight: 400; color: var(--ink-mute); }
+.breadcrumb a { color: var(--ink-mute); text-decoration: none; }
+.breadcrumb a:hover { color: var(--primary-deep); }
+.breadcrumb [aria-current="page"] { color: var(--ink-2); }
 .section { padding: var(--section) 0; position: relative; }
 .section-soft { background: var(--soft); }
 [id] { scroll-margin-top: 88px; }

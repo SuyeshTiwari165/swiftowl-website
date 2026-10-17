@@ -18,6 +18,18 @@ const DIST = path.join(__dirname, 'dist')
 
 const app = express()
 
+// Same header set as vercel.json, so Cloudways gets identical protection —
+// Vercel's platform applies its headers config separately; here we set them
+// ourselves since this is a plain Node process.
+app.use((req, res, next) => {
+  res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+  next()
+})
+
 app.use(express.json())
 app.post('/api/submit-form', submitForm)
 

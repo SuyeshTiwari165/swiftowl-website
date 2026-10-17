@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Icon, Reveal } from '../components/ui'
-import { Field, Seg, SubmitRow, Success, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, useForm } from '../components/Forms'
 import { APP_URL } from '../lib/forms'
 
 const INCLUDED = [
@@ -14,7 +14,7 @@ const INCLUDED = [
 export default function Signup() {
   const f = useForm(
     'trial',
-    { name: '', email: '', company: '', size: '2–7', role: '' },
+    { name: '', email: '', company: '', size: '2–7', role: '', hp: '' },
     { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'] },
   )
 
@@ -44,6 +44,7 @@ export default function Signup() {
             </div>
           ) : (
             <form className="form-card" onSubmit={f.onSubmit} noValidate>
+              <Honeypot value={f.values.hp} onChange={f.set('hp')} />
               <div className="form-grid">
                 <Field className="full" name="name" label="Full name" autoComplete="name" value={f.values.name} onChange={f.set('name')} error={f.errors.name} />
                 <Field className="full" name="email" label="Work email" type="email" autoComplete="email" value={f.values.email} onChange={f.set('email')} error={f.errors.email} />

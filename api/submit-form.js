@@ -12,7 +12,31 @@
 // /api/submit-form — no frontend changes needed.
 
 const REQUIRED_FIELDS = { trial: ['name', 'email', 'company'], demo: ['name', 'email'], contact: ['name', 'email'], partner: ['name', 'email', 'company'] }
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+// Every field each form actually submits (src/pages/Signup.jsx, Contact.jsx,
+// Partners.jsx), beyond name/email/company — anything else in the request
+// body is dropped rather than rendered into the notification email, so a
+// submitter can't pad or spoof extra "fields" into the lead inbox.
+const OPTIONAL_FIELDS = {
+  trial: ['size', 'role'],
+  demo: ['topic', 'size', 'message'],
+  contact: ['topic', 'size', 'message'],
+  partner: ['website', 'type', 'clients', 'message'],
+}
+// No whitespace/@ (original intent) plus no HTML metacharacters, since this
+// value is interpolated into an unescaped mailto: href in emailShell().
+const EMAIL_RE = /^[^\s@<>"'`]+@[^\s@<>"'`]+\.[^\s@<>"'`]{2,}$/
+const MAX_FIELD_LEN = 3000
+
+function sanitize(data) {
+  const out = {}
+  for (const [k, v] of Object.entries(data)) {
+    // Strip control characters (defense in depth against header/line
+    // injection, even though Postmark's API normalizes these server-side)
+    // and cap length so no single field can bloat the email indefinitely.
+    out[k] = typeof v === 'string' ? v.replace(/[\r\n\0]/g, ' ').slice(0, MAX_FIELD_LEN) : v
+  }
+  return out
+}
 
 const KIND_LABEL = { trial: 'Free trial signup', demo: 'Demo request', contact: 'Contact message', partner: 'Partner application' }
 
@@ -89,7 +113,7 @@ function emailShell({ eyebrow, heading, bodyHtml, ctaLabel, ctaHref }) {
             ${eyebrow ? `<div style="display:inline-block;background:#dfdefd;color:#4434d4;font-size:12px;font-weight:600;letter-spacing:0.02em;padding:5px 12px;border-radius:9999px;margin-bottom:18px">${eyebrow}</div>` : ''}
             <h1 style="margin:0 0 14px;font-size:22px;font-weight:600;color:#0d253d;letter-spacing:-0.01em;line-height:1.3">${heading}</h1>
             <div style="font-size:15px;line-height:1.6;color:#273951">${bodyHtml}</div>
-            ${ctaHref ? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:26px"><tr><td style="background:#533afd;border-radius:9999px;height:40px"><a href="${ctaHref}" style="display:inline-block;padding:9px 22px;font-size:15px;font-weight:500;color:#ffffff;text-decoration:none;line-height:22px">${ctaLabel}</a></td></tr></table>` : ''}
+            ${ctaHref ? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:26px"><tr><td style="background:#533afd;border-radius:9999px;height:40px"><a href="${escapeHtml(ctaHref)}" style="display:inline-block;padding:9px 22px;font-size:15px;font-weight:500;color:#ffffff;text-decoration:none;line-height:22px">${ctaLabel}</a></td></tr></table>` : ''}
           </td></tr>
         </table>
       </td></tr>
@@ -138,9 +162,17 @@ export default async function handler(req, res) {
   const kind = data?.kind
   if (!KIND_LABEL[kind]) return res.status(400).json({ error: 'Unknown form kind' })
 
+  // Honeypot: src/components/Forms.jsx renders a "hp" field hidden from real
+  // users via CSS, that only an automated filler would populate. Pretend
+  // success without sending anything, so bots don't learn to avoid it.
+  if (String(data.hp ?? '').trim()) return res.status(200).json({ ok: true })
+
   const missing = (REQUIRED_FIELDS[kind] || []).filter((f) => !String(data[f] ?? '').trim())
   if (missing.length) return res.status(400).json({ error: `Missing required field(s): ${missing.join(', ')}` })
   if (!EMAIL_RE.test(String(data.email ?? ''))) return res.status(400).json({ error: 'Invalid email' })
+
+  const allowed = new Set([...REQUIRED_FIELDS[kind], ...(OPTIONAL_FIELDS[kind] || []), 'page', 'submittedAt'])
+  data = sanitize(Object.fromEntries(Object.entries(data).filter(([k]) => allowed.has(k))))
 
   const internal = {
     From: POSTMARK_FROM_EMAIL,

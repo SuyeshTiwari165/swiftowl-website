@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Icon, Reveal, money } from '../components/ui'
-import { Field, Seg, SubmitRow, Success, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, useForm } from '../components/Forms'
 
 const WHY = [
   ['chart', 'New recurring revenue', 'Add SwiftOwl to every client engagement with simple, whole-company pricing that’s easy to resell.'],
@@ -89,7 +89,7 @@ function Portfolio() {
 function ApplyForm() {
   const f = useForm(
     'partner',
-    { name: '', email: '', company: '', website: '', type: 'MSP', clients: '', message: '' },
+    { name: '', email: '', company: '', website: '', type: 'MSP', clients: '', message: '', hp: '' },
     { name: ['required'], email: ['required', 'email'], company: ['required'] },
   )
   if (f.status === 'sent') {
@@ -103,6 +103,7 @@ function ApplyForm() {
   }
   return (
     <form className="form-card" onSubmit={f.onSubmit} noValidate>
+      <Honeypot value={f.values.hp} onChange={f.set('hp')} />
       <div className="form-grid">
         <Field name="name" label="Full name" autoComplete="name" value={f.values.name} onChange={f.set('name')} error={f.errors.name} />
         <Field name="email" label="Work email" type="email" autoComplete="email" value={f.values.email} onChange={f.set('email')} error={f.errors.email} />

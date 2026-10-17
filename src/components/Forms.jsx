@@ -31,6 +31,24 @@ export function useForm(kind, initial, rules) {
   return { values, errors, status, set, onSubmit, reset: () => { setValues(initial); setStatus('idle') } }
 }
 
+// Hidden from real users (off-screen, not display:none — some bots skip
+// display:none fields) but present in the DOM for an automated form-filler
+// to find. api/submit-form.js silently no-ops the request if this is filled.
+export function Honeypot({ value, onChange }) {
+  return (
+    <input
+      type="text"
+      name="hp"
+      value={value}
+      onChange={onChange}
+      tabIndex={-1}
+      autoComplete="off"
+      aria-hidden="true"
+      style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+    />
+  )
+}
+
 export function Field({ name, label, optional, error, as = 'input', children, className = '', ...rest }) {
   const Comp = as
   return (

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import { Icon, Reveal } from '../components/ui'
-import { Field, Seg, SubmitRow, Success, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, useForm } from '../components/Forms'
 
 const TOPICS = ['Book a demo', 'Sales question', 'Partnership', 'Security & compliance', 'Something else']
 
 export default function Contact({ demo = false }) {
   const f = useForm(
     demo ? 'demo' : 'contact',
-    { name: '', email: '', company: '', topic: demo ? 'Book a demo' : 'Sales question', size: '', message: '' },
+    { name: '', email: '', company: '', topic: demo ? 'Book a demo' : 'Sales question', size: '', message: '', hp: '' },
     { name: ['required'], email: ['required', 'email'] },
   )
   const isDemo = f.values.topic === 'Book a demo'
@@ -51,6 +51,7 @@ export default function Contact({ demo = false }) {
             </div>
           ) : (
             <form className="form-card" onSubmit={f.onSubmit} noValidate>
+              <Honeypot value={f.values.hp} onChange={f.set('hp')} />
               <div className="form-grid">
                 <Seg label="What can we help with?" options={TOPICS} value={f.values.topic} onChange={f.set('topic')} />
                 <Field name="name" label="Full name" autoComplete="name" value={f.values.name} onChange={f.set('name')} error={f.errors.name} />

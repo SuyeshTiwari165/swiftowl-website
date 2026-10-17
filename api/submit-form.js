@@ -109,11 +109,11 @@ function emailShell({ eyebrow, heading, bodyHtml, ctaLabel, ctaHref }) {
   return `<!doctype html>
 <html>
   <body style="margin:0;padding:32px 16px;background:#f6f9fc;font-family:${FONT}">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto">
+    <table role="presentation" border="0" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto">
       <tr><td style="border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(13,37,61,0.06),0 8px 24px -12px rgba(13,37,61,0.12)">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <table role="presentation" border="0" width="100%" cellpadding="0" cellspacing="0">
           <tr><td style="${MESH_BG};padding:24px 32px">
-            <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr>
               <td style="padding-right:10px"><img src="${LOGO_CID_SRC}" width="40" height="26" alt="" style="display:block;border:0"></td>
               <td style="font-size:19px;font-weight:600;color:#0d253d;letter-spacing:-0.01em">SwiftOwl</td>
             </tr></table>
@@ -122,7 +122,7 @@ function emailShell({ eyebrow, heading, bodyHtml, ctaLabel, ctaHref }) {
             ${eyebrow ? `<div style="display:inline-block;background:#dfdefd;color:#4434d4;font-size:12px;font-weight:600;letter-spacing:0.02em;padding:5px 12px;border-radius:9999px;margin-bottom:18px">${eyebrow}</div>` : ''}
             <h1 style="margin:0 0 14px;font-size:22px;font-weight:600;color:#0d253d;letter-spacing:-0.01em;line-height:1.3">${heading}</h1>
             <div style="font-size:15px;line-height:1.6;color:#273951">${bodyHtml}</div>
-            ${ctaHref ? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:26px"><tr><td style="background:#533afd;border-radius:9999px;height:40px"><a href="${escapeHtml(ctaHref)}" style="display:inline-block;padding:9px 22px;font-size:15px;font-weight:500;color:#ffffff;text-decoration:none;line-height:22px">${ctaLabel}</a></td></tr></table>` : ''}
+            ${ctaHref ? `<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-top:26px"><tr><td style="background:#533afd;border-radius:9999px;height:40px"><a href="${escapeHtml(ctaHref)}" style="display:inline-block;padding:9px 22px;font-size:15px;font-weight:500;color:#ffffff;text-decoration:none;line-height:22px">${ctaLabel}</a></td></tr></table>` : ''}
           </td></tr>
         </table>
       </td></tr>
@@ -192,7 +192,7 @@ export default async function handler(req, res) {
     HtmlBody: emailShell({
       eyebrow: KIND_LABEL[kind],
       heading: escapeHtml(data.name || data.email),
-      bodyHtml: `<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%">${fieldRows(data)}</table><p style="color:#94a3b8;font-size:12px;margin:16px 0 0">Submitted from ${escapeHtml(data.page || 'unknown page')} at ${escapeHtml(formatSubmittedAt(data.submittedAt))}</p>`,
+      bodyHtml: `<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="width:100%">${fieldRows(data)}</table><p style="color:#94a3b8;font-size:12px;margin:16px 0 0">Submitted from ${escapeHtml(data.page || 'unknown page')} at ${escapeHtml(formatSubmittedAt(data.submittedAt))}</p>`,
       ctaLabel: `Reply to ${escapeHtml(firstName(data.name || data.email))}`,
       ctaHref: `mailto:${data.email}`,
     }),

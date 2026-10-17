@@ -123,7 +123,7 @@ const LAYERS = [
   ['lock', 'Encryption', 'All data is encrypted in transit using TLS 1.2 or higher, and at rest using AES-256.'],
   ['key', 'Access controls', 'Role-based access and optional multi-factor authentication keep your team and data secure.'],
   ['shield', 'Data privacy', 'Your data is never used to train any AI model, ours or anyone else’s.'],
-  ['layers', 'Secure infrastructure', 'Hosted on leading cloud platforms with monitoring, isolation and backups.'],
+  ['layers', 'Secure infrastructure', 'Hosted entirely in the United States, across multiple regions for redundancy, inside the scope of our ISO 27001 certification.'],
   ['doc', 'Audit and logging', 'Comprehensive audit logs and activity tracking for complete transparency.'],
   ['compass', 'Compliance ready', 'Built to support your compliance requirements, led by ISO 27001.'],
 ]

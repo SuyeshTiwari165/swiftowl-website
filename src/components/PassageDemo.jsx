@@ -211,7 +211,7 @@ export default function PassageDemo() {
             <AnimatePresence>
               {phase === 'mask' && (
                 <motion.p className="mask-note" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                  Names, emails, phone numbers and bank details are encrypted before sending.
+                  Names, emails and phone numbers are replaced with tokens before anything is sent, and swapped back in the reply.
                 </motion.p>
               )}
             </AnimatePresence>

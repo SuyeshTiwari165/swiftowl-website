@@ -90,7 +90,7 @@ function ApplyForm() {
   const f = useForm(
     'partner',
     { name: '', email: '', company: '', website: '', type: 'MSP', clients: '', message: '', hp: '' },
-    { name: ['required'], email: ['required', 'email'], company: ['required'] },
+    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'] },
   )
   if (f.status === 'sent') {
     return (

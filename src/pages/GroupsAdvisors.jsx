@@ -83,10 +83,32 @@ const ADVISORS = [
 ]
 
 const SOURCES = ['Sales playbook.docx', 'Pricing sheet.xlsx', 'Past proposals', 'Objection handling notes']
-const TONES = {
-  Direct: 'Lead with the refund policy, then offer the annual discount. Keep it to two lines.',
-  Friendly: 'Happy to help! I’d open with the refund policy, then mention the annual discount as a nice extra.',
-  Formal: 'I recommend addressing the refund policy first, followed by the annual discount as a secondary incentive.',
+
+// What each selected source actually contributes to the answer — this is
+// what makes the demo look like it's drawing from the chosen knowledge
+// instead of showing one fixed reply no matter what's picked.
+const SOURCE_INSIGHTS = {
+  'Sales playbook.docx': 'lead with the refund policy',
+  'Pricing sheet.xlsx': 'point out the annual plan already saves 30% over monthly',
+  'Past proposals': 'offer the one-time 10% discount that’s worked before',
+  'Objection handling notes': 'pivot to time saved per week if they push on price',
+}
+
+function joinInsights(items) {
+  if (items.length <= 1) return items[0] ?? ''
+  if (items.length === 2) return `${items[0]} and ${items[1]}`
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`
+}
+
+const TONE_STYLE = {
+  Direct: (list) => `${list.charAt(0).toUpperCase()}${list.slice(1)}.`,
+  Friendly: (list) => `Happy to help! I’d ${list}.`,
+  Formal: (list) => `I recommend you ${list}.`,
+}
+
+function buildReply(tone, sources) {
+  const insights = SOURCES.filter((s) => sources.includes(s)).map((s) => SOURCE_INSIGHTS[s])
+  return TONE_STYLE[tone](joinInsights(insights))
 }
 
 function AdvisorBuilder() {
@@ -114,7 +136,7 @@ function AdvisorBuilder() {
         <div className="field" style={{ marginTop: 18 }}>
           <span style={{ fontSize: 14, fontWeight: 600 }}>3. Set its tone</span>
           <div className="seg">
-            {Object.keys(TONES).map((t) => (
+            {Object.keys(TONE_STYLE).map((t) => (
               <button type="button" key={t} aria-pressed={tone === t} onClick={() => setTone(t)}>{t}</button>
             ))}
           </div>
@@ -149,7 +171,7 @@ function AdvisorBuilder() {
             <span className="msg-avatar" aria-hidden="true"><Icon name="spark" size={14} stroke={2.5} /></span>
             <div>
               <span className="msg-who">{name.trim() || 'Your advisor'}</span>
-              <p>{sources.length ? TONES[tone] : 'I don’t have any knowledge yet. Add a source and I’ll answer from it.'}</p>
+              <p>{sources.length ? buildReply(tone, sources) : 'I don’t have any knowledge yet. Add a source and I’ll answer from it.'}</p>
             </div>
           </motion.div>
         </AnimatePresence>

@@ -8,7 +8,7 @@ export default function Contact({ demo = false }) {
   const f = useForm(
     demo ? 'demo' : 'contact',
     { name: '', email: '', company: '', topic: demo ? 'Book a demo' : 'Sales question', size: '', message: '', hp: '' },
-    { name: ['required'], email: ['required', 'email'] },
+    { name: ['required'], email: ['required', 'email', 'workEmail'] },
   )
   const isDemo = f.values.topic === 'Book a demo'
 

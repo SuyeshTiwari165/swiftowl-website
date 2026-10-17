@@ -25,6 +25,10 @@ const OPTIONAL_FIELDS = {
 // No whitespace/@ (original intent) plus no HTML metacharacters, since this
 // value is interpolated into an unescaped mailto: href in emailShell().
 const EMAIL_RE = /^[^\s@<>"'`]+@[^\s@<>"'`]+\.[^\s@<>"'`]{2,}$/
+// Mirrors src/lib/forms.js's client-side workEmail check — enforced again
+// here since client-side validation alone can be bypassed by posting to
+// this endpoint directly.
+const FREE_MAIL = /@(gmail|yahoo|hotmail|outlook|live|icloud|aol|proton(mail)?)\./i
 const MAX_FIELD_LEN = 3000
 
 function sanitize(data) {
@@ -170,6 +174,7 @@ export default async function handler(req, res) {
   const missing = (REQUIRED_FIELDS[kind] || []).filter((f) => !String(data[f] ?? '').trim())
   if (missing.length) return res.status(400).json({ error: `Missing required field(s): ${missing.join(', ')}` })
   if (!EMAIL_RE.test(String(data.email ?? ''))) return res.status(400).json({ error: 'Invalid email' })
+  if (FREE_MAIL.test(String(data.email ?? ''))) return res.status(400).json({ error: 'Use your work email so we can set up your company workspace' })
 
   const allowed = new Set([...REQUIRED_FIELDS[kind], ...(OPTIONAL_FIELDS[kind] || []), 'page', 'submittedAt'])
   data = sanitize(Object.fromEntries(Object.entries(data).filter(([k]) => allowed.has(k))))

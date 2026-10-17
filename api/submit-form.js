@@ -11,6 +11,8 @@
 // src/lib/forms.js already POSTs JSON here once VITE_FORMS_ENDPOINT points at
 // /api/submit-form — no frontend changes needed.
 
+import { LOGO_PNG_BASE64 } from './_email-logo.js'
+
 const REQUIRED_FIELDS = { trial: ['name', 'email', 'company'], demo: ['name', 'email'], contact: ['name', 'email'], partner: ['name', 'email', 'company'] }
 // Every field each form actually submits (src/pages/Signup.jsx, Contact.jsx,
 // Partners.jsx), beyond name/email/company — anything else in the request
@@ -98,7 +100,10 @@ function fieldRows(data) {
 // see public/email/mark.png — always sits on a readable background
 // regardless of how wide the banner renders.
 const MESH_BG = 'background:#533afd;background:linear-gradient(100deg,#f5e9d4 0%,#f5e9d4 35%,#ffab72 58%,#f96bee 78%,#533afd 100%)'
-const LOGO_URL = 'https://swiftowl.ai/email/mark.png'
+// Embedded via Postmark's Attachments (see LOGO_ATTACHMENT below), not
+// linked by URL — see the comment in api/_email-logo.js for why.
+const LOGO_CID_SRC = 'cid:logo'
+const LOGO_ATTACHMENT = { Name: 'logo.png', Content: LOGO_PNG_BASE64, ContentType: 'image/png', ContentID: 'logo' }
 
 function emailShell({ eyebrow, heading, bodyHtml, ctaLabel, ctaHref }) {
   return `<!doctype html>
@@ -109,7 +114,7 @@ function emailShell({ eyebrow, heading, bodyHtml, ctaLabel, ctaHref }) {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
           <tr><td style="${MESH_BG};padding:24px 32px">
             <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-              <td style="padding-right:10px"><img src="${LOGO_URL}" width="40" height="26" alt="" style="display:block;border:0"></td>
+              <td style="padding-right:10px"><img src="${LOGO_CID_SRC}" width="40" height="26" alt="" style="display:block;border:0"></td>
               <td style="font-size:19px;font-weight:600;color:#0d253d;letter-spacing:-0.01em">SwiftOwl</td>
             </tr></table>
           </td></tr>
@@ -193,6 +198,7 @@ export default async function handler(req, res) {
     }),
     TextBody: Object.entries(data).filter(([k]) => k !== 'kind').map(([k, v]) => `${k}: ${v}`).join('\n'),
     MessageStream: 'outbound',
+    Attachments: [LOGO_ATTACHMENT],
   }
 
   const ack = {
@@ -208,6 +214,7 @@ export default async function handler(req, res) {
     }),
     TextBody: ACK_BODY[kind](data),
     MessageStream: 'outbound',
+    Attachments: [LOGO_ATTACHMENT],
   }
 
   let results

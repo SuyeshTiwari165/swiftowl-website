@@ -55,7 +55,7 @@ function RiskToggle() {
 const FLOW = [
   { h: 'Indexed on SwiftOwl’s infrastructure', p: 'Documents are indexed there, in a workspace isolated to your company — the source library is never sent to a model provider.' },
   { h: 'Relevant passage retrieved', p: 'Only the document passage needed to answer the request is retrieved.', control: 0 },
-  { h: 'Identifiers obfuscated', p: 'Names, emails, phone numbers and account numbers are swapped for tokens in the passage and in your typed message before anything is sent.', control: 1 },
+  { h: 'Identifiers obfuscated', p: 'Emails, phone numbers and account numbers are swapped for tokens in the passage and in your typed message before anything is sent.', control: 1 },
   { h: 'Secure AI processing', p: 'The obfuscated content goes to the AI model provider under a no-training contract.', control: 2 },
   { h: 'Response generated', p: 'The model answers from that context. Tokens are swapped back so you see the real values.' },
   { h: 'Data deleted', p: 'The transmitted content is deleted after the response.', control: 3 },

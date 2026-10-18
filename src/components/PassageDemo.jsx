@@ -15,12 +15,14 @@ const DOCS = [
 // A segment is plain text or a PII value { v: real value, t: token the model sees }.
 const P = (v, t) => ({ v, t: `[[PII:${t}]]` })
 
-const DANIEL = P('Daniel Okafor', 'q7Xk2…')
+// Names are plain strings, not PII-wrapped: SwiftOwl doesn't obfuscate names,
+// only emails, phone numbers and account numbers — see the mask-note below.
+const DANIEL = 'Daniel Okafor'
 const DANIEL_MAIL = P('daniel@northwind.io', 'Lm0vR…')
 const DANIEL_TEL = P('+1 415 555 0142', 'Zp4sE…')
-const PRIYA = P('Priya Sharma', 'c2Hw9…')
+const PRIYA = 'Priya Sharma'
 const PRIYA_TEL = P('+44 20 7946 0958', 'Tn8aJ…')
-const MARCO = P('Marco Rossi', 'Wd5yQ…')
+const MARCO = 'Marco Rossi'
 const IBAN = P('GB29 NWBK 6016 1331 9268 19', 'fR3oB…')
 
 const QUESTIONS = [
@@ -211,7 +213,7 @@ export default function PassageDemo() {
             <AnimatePresence>
               {phase === 'mask' && (
                 <motion.p className="mask-note" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                  Names, emails and phone numbers are replaced with tokens before anything is sent, and swapped back in the reply.
+                  Emails, phone numbers and account numbers are replaced with tokens before anything is sent, and swapped back in the reply.
                 </motion.p>
               )}
             </AnimatePresence>

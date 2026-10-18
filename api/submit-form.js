@@ -4,9 +4,10 @@
 //
 // Required env vars (set in Vercel → Project → Environment Variables, and in
 // .env.local for local testing with `vercel dev`):
-//   POSTMARK_API_KEY   — server token, no VITE_ prefix so it never reaches the browser
+//   POSTMARK_API_KEY    — server token, no VITE_ prefix so it never reaches the browser
 //   POSTMARK_FROM_EMAIL — verified sender, e.g. no-reply@swiftowl.ai
 //   NOTIFY_TO_EMAIL     — internal inbox that receives every submission
+//   TURNSTILE_SECRET_KEY — verifies the Cloudflare Turnstile token src/components/Forms.jsx collects
 //
 // src/lib/forms.js already POSTs JSON here once VITE_FORMS_ENDPOINT points at
 // /api/submit-form — no frontend changes needed.
@@ -32,6 +33,17 @@ const EMAIL_RE = /^[^\s@<>"'`]+@[^\s@<>"'`]+\.[^\s@<>"'`]{2,}$/
 // this endpoint directly.
 const FREE_MAIL = /@(gmail|yahoo|hotmail|outlook|live|icloud|aol|proton(mail)?)\./i
 const MAX_FIELD_LEN = 3000
+
+async function verifyTurnstile(token, ip) {
+  if (!token) return false
+  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ secret: process.env.TURNSTILE_SECRET_KEY, response: token, ...(ip ? { remoteip: ip } : {}) }),
+  })
+  const result = await res.json()
+  return result.success === true
+}
 
 function sanitize(data) {
   const out = {}
@@ -155,8 +167,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { POSTMARK_API_KEY, POSTMARK_FROM_EMAIL, NOTIFY_TO_EMAIL } = process.env
-  if (!POSTMARK_API_KEY || !POSTMARK_FROM_EMAIL || !NOTIFY_TO_EMAIL) {
+  const { POSTMARK_API_KEY, POSTMARK_FROM_EMAIL, NOTIFY_TO_EMAIL, TURNSTILE_SECRET_KEY } = process.env
+  if (!POSTMARK_API_KEY || !POSTMARK_FROM_EMAIL || !NOTIFY_TO_EMAIL || !TURNSTILE_SECRET_KEY) {
     console.error('[submit-form] missing required env vars')
     return res.status(500).json({ error: 'Form handling is not configured' })
   }
@@ -175,6 +187,16 @@ export default async function handler(req, res) {
   // users via CSS, that only an automated filler would populate. Pretend
   // success without sending anything, so bots don't learn to avoid it.
   if (String(data.hp ?? '').trim()) return res.status(200).json({ ok: true })
+
+  // Turnstile: catches bots that do run JavaScript (the honeypot above only
+  // catches ones that don't). The real failure reason is logged but not
+  // returned to the client, consistent with the other checks below.
+  const ip = req.headers?.['x-forwarded-for']?.split(',')[0]?.trim()
+  const human = await verifyTurnstile(data.turnstileToken, ip)
+  if (!human) {
+    console.error('[submit-form] Turnstile verification failed')
+    return res.status(400).json({ error: 'Verification failed. Please try again.' })
+  }
 
   const missing = (REQUIRED_FIELDS[kind] || []).filter((f) => !String(data[f] ?? '').trim())
   if (missing.length) return res.status(400).json({ error: `Missing required field(s): ${missing.join(', ')}` })

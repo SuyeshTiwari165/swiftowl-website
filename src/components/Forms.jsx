@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { submitForm, validate } from '../lib/forms'
 
@@ -47,6 +47,56 @@ export function Honeypot({ value, onChange }) {
       style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
     />
   )
+}
+
+// Loads the Turnstile script once (lazily, only when a form actually
+// mounts one) rather than on every page via a global <script> tag.
+let turnstileLoad
+function loadTurnstile() {
+  if (!turnstileLoad) {
+    turnstileLoad = new Promise((resolve) => {
+      if (window.turnstile) return resolve(window.turnstile)
+      const script = document.createElement('script')
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
+      script.async = true
+      script.defer = true
+      script.onload = () => resolve(window.turnstile)
+      document.head.appendChild(script)
+    })
+  }
+  return turnstileLoad
+}
+
+// Bot check alongside the honeypot — honeypot catches simple bots for free,
+// this catches ones that actually run JavaScript. Calls onToken(token) when
+// solved and onToken('') if it expires, so the caller can require a fresh
+// token before allowing submit. Needs VITE_TURNSTILE_SITE_KEY (public by
+// design, safe in client code) and the server needs TURNSTILE_SECRET_KEY.
+export function Turnstile({ onToken }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    let widgetId
+    let cancelled = false
+    loadTurnstile().then((turnstile) => {
+      if (cancelled || !ref.current || !turnstile) return
+      try {
+        widgetId = turnstile.render(ref.current, {
+          sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
+          callback: onToken,
+          'expired-callback': () => onToken(''),
+          'error-callback': () => onToken(''),
+        })
+      } catch (err) {
+        console.error('[Turnstile] failed to render:', err)
+      }
+    })
+    return () => {
+      cancelled = true
+      if (widgetId !== undefined) window.turnstile?.remove(widgetId)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  return <div ref={ref} className="turnstile" />
 }
 
 export function Field({ name, label, optional, error, as = 'input', children, className = '', ...rest }) {

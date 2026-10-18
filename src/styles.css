@@ -805,6 +805,7 @@ p { text-wrap: pretty; }
 .seg button { border: 1px solid var(--hairline-input); background: #fff; padding: 7px 14px; min-height: 36px; border-radius: var(--pill); font-size: 14px; font-weight: 400; color: var(--ink-2); cursor: pointer; transition: background-color 0.15s, border-color 0.15s, color 0.15s; }
 .seg button:hover { border-color: var(--primary); color: var(--primary); }
 .seg button[aria-pressed='true'] { border-color: var(--primary); background: var(--primary-tint); color: var(--primary-deep); }
+.turnstile { margin-top: 20px; }
 .form-submit { margin-top: 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .form-submit small { color: var(--ink-mute); font-size: 13px; font-weight: 400; }
 .form-alert { margin-top: 16px; padding: 12px 14px; border-radius: var(--r-md); background: #fdebf1; color: #a3123f; font-size: 14px; font-weight: 400; }

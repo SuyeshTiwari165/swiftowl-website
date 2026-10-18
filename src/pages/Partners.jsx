@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Icon, Reveal, money } from '../components/ui'
-import { Field, Honeypot, Seg, SubmitRow, Success, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, useForm } from '../components/Forms'
 
 const WHY = [
   ['chart', 'New recurring revenue', 'Add SwiftOwl to every client engagement with simple, whole-company pricing that’s easy to resell.'],
@@ -89,8 +89,8 @@ function Portfolio() {
 function ApplyForm() {
   const f = useForm(
     'partner',
-    { name: '', email: '', company: '', website: '', type: 'MSP', clients: '', message: '', hp: '' },
-    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'] },
+    { name: '', email: '', company: '', website: '', type: 'MSP', clients: '', message: '', hp: '', turnstileToken: '' },
+    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'], turnstileToken: ['required'] },
   )
   if (f.status === 'sent') {
     return (
@@ -119,6 +119,8 @@ function ApplyForm() {
         </Field>
         <Field className="full" name="message" label="Tell us about your clients" optional as="textarea" placeholder="Industries, team sizes, how they use AI today…" value={f.values.message} onChange={f.set('message')} />
       </div>
+      <Turnstile onToken={f.set('turnstileToken')} />
+      {f.errors.turnstileToken && <span className="field-error">Please complete the verification above.</span>}
       <SubmitRow status={f.status} label="Apply to partner" sendingLabel="Sending application…" note="We reply within two business days." />
     </form>
   )

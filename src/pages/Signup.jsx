@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Icon, Reveal } from '../components/ui'
-import { Field, Honeypot, Seg, SubmitRow, Success, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, useForm } from '../components/Forms'
 import { APP_URL } from '../lib/forms'
 
 const INCLUDED = [
@@ -14,8 +14,8 @@ const INCLUDED = [
 export default function Signup() {
   const f = useForm(
     'trial',
-    { name: '', email: '', company: '', size: '2–7', role: '', hp: '' },
-    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'] },
+    { name: '', email: '', company: '', size: '2–7', role: '', hp: '', turnstileToken: '' },
+    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'], turnstileToken: ['required'] },
   )
 
   return (
@@ -52,6 +52,8 @@ export default function Signup() {
                 <Field name="role" label="Your role" optional autoComplete="organization-title" value={f.values.role} onChange={f.set('role')} />
                 <Seg label="Team size" options={['2–7', '8–25', '26–100', '100+']} value={f.values.size} onChange={f.set('size')} />
               </div>
+              <Turnstile onToken={f.set('turnstileToken')} />
+              {f.errors.turnstileToken && <span className="field-error">Please complete the verification above.</span>}
               <SubmitRow status={f.status} label="Start free trial" sendingLabel="Setting things up…" />
               <p className="muted" style={{ fontSize: 13, margin: '16px 0 0' }}>
                 Already have an account? <a href={APP_URL}>Sign in</a>. Rather talk first? <Link to="/book-a-demo">Book a demo</Link>.

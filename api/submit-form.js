@@ -7,7 +7,11 @@
 //   POSTMARK_API_KEY    — server token, no VITE_ prefix so it never reaches the browser
 //   POSTMARK_FROM_EMAIL — verified sender, e.g. no-reply@swiftowl.ai
 //   NOTIFY_TO_EMAIL     — internal inbox that receives every submission
-//   TURNSTILE_SECRET_KEY — verifies the Cloudflare Turnstile token src/components/Forms.jsx collects
+//
+// Optional (recommended): TURNSTILE_SECRET_KEY — verifies the Cloudflare
+// Turnstile token src/components/Forms.jsx collects. Without it, Turnstile
+// verification is skipped (logged) rather than blocking submissions — see
+// verifyTurnstile() below.
 //
 // src/lib/forms.js already POSTs JSON here once VITE_FORMS_ENDPOINT points at
 // /api/submit-form — no frontend changes needed.
@@ -35,6 +39,14 @@ const FREE_MAIL = /@(gmail|yahoo|hotmail|outlook|live|icloud|aol|proton(mail)?)\
 const MAX_FIELD_LEN = 3000
 
 async function verifyTurnstile(token, ip) {
+  // Fails open, not closed: until TURNSTILE_SECRET_KEY is actually set (see
+  // .env.example), skip verification rather than reject every submission.
+  // The honeypot stays active either way. Once the key exists, enforcement
+  // activates automatically — no further code change needed.
+  if (!process.env.TURNSTILE_SECRET_KEY) {
+    console.error('[submit-form] TURNSTILE_SECRET_KEY not set — skipping verification')
+    return true
+  }
   if (!token) return false
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
@@ -167,8 +179,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { POSTMARK_API_KEY, POSTMARK_FROM_EMAIL, NOTIFY_TO_EMAIL, TURNSTILE_SECRET_KEY } = process.env
-  if (!POSTMARK_API_KEY || !POSTMARK_FROM_EMAIL || !NOTIFY_TO_EMAIL || !TURNSTILE_SECRET_KEY) {
+  const { POSTMARK_API_KEY, POSTMARK_FROM_EMAIL, NOTIFY_TO_EMAIL } = process.env
+  if (!POSTMARK_API_KEY || !POSTMARK_FROM_EMAIL || !NOTIFY_TO_EMAIL) {
     console.error('[submit-form] missing required env vars')
     return res.status(500).json({ error: 'Form handling is not configured' })
   }

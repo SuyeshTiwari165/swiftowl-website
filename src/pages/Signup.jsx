@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Icon, Reveal } from '../components/ui'
-import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, TURNSTILE_ENABLED, useForm } from '../components/Forms'
 import { APP_URL } from '../lib/forms'
 
 const INCLUDED = [
@@ -15,7 +15,7 @@ export default function Signup() {
   const f = useForm(
     'trial',
     { name: '', email: '', company: '', size: '2–7', role: '', hp: '', turnstileToken: '' },
-    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'], turnstileToken: ['required'] },
+    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'], ...(TURNSTILE_ENABLED ? { turnstileToken: ['required'] } : {}) },
   )
 
   return (

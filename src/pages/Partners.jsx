@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Icon, Reveal, money } from '../components/ui'
-import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, TURNSTILE_ENABLED, useForm } from '../components/Forms'
 
 const WHY = [
   ['chart', 'New recurring revenue', 'Add SwiftOwl to every client engagement with simple, whole-company pricing that’s easy to resell.'],
@@ -90,7 +90,7 @@ function ApplyForm() {
   const f = useForm(
     'partner',
     { name: '', email: '', company: '', website: '', type: 'MSP', clients: '', message: '', hp: '', turnstileToken: '' },
-    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'], turnstileToken: ['required'] },
+    { name: ['required'], email: ['required', 'email', 'workEmail'], company: ['required'], ...(TURNSTILE_ENABLED ? { turnstileToken: ['required'] } : {}) },
   )
   if (f.status === 'sent') {
     return (

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Icon, Reveal } from '../components/ui'
-import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, useForm } from '../components/Forms'
+import { Field, Honeypot, Seg, SubmitRow, Success, Turnstile, TURNSTILE_ENABLED, useForm } from '../components/Forms'
 
 const TOPICS = ['Book a demo', 'Sales question', 'Partnership', 'Security & compliance', 'Something else']
 
@@ -8,7 +8,7 @@ export default function Contact({ demo = false }) {
   const f = useForm(
     demo ? 'demo' : 'contact',
     { name: '', email: '', company: '', topic: demo ? 'Book a demo' : 'Sales question', size: '', message: '', hp: '', turnstileToken: '' },
-    { name: ['required'], email: ['required', 'email', 'workEmail'], turnstileToken: ['required'] },
+    { name: ['required'], email: ['required', 'email', 'workEmail'], ...(TURNSTILE_ENABLED ? { turnstileToken: ['required'] } : {}) },
   )
   const isDemo = f.values.topic === 'Book a demo'
 

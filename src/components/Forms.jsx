@@ -49,6 +49,11 @@ export function Honeypot({ value, onChange }) {
   )
 }
 
+// Pages use this to make turnstileToken required only once a site key is
+// actually configured — otherwise the widget never renders, never produces
+// a token, and a 'required' rule would permanently block submission.
+export const TURNSTILE_ENABLED = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY)
+
 // Loads the Turnstile script once (lazily, only when a form actually
 // mounts one) rather than on every page via a global <script> tag.
 let turnstileLoad
@@ -74,7 +79,9 @@ function loadTurnstile() {
 // design, safe in client code) and the server needs TURNSTILE_SECRET_KEY.
 export function Turnstile({ onToken }) {
   const ref = useRef(null)
+  const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
   useEffect(() => {
+    if (!siteKey) return
     let widgetId
     let cancelled = false
     loadTurnstile().then((turnstile) => {
